@@ -1,0 +1,172 @@
+﻿@{
+    ViewData["Title"] = "Редактирование маршрута";
+    Layout = "_LayoutMain";
+}
+<body>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=35171b98-e159-494e-9a49-fb4f12e60d78&lang=ru_RU" type="text/javascript"></script>
+    <script src="polylineEditor.js" type="text/javascript"></script>
+    <h2 align="center">Редактирование остановок</h2>
+
+    <button class="btnLogin btn btn-light" value="Показать карту" onclick="init1()">Показать карту</button>
+
+    <div style="display:flex">
+        <div>
+            <div>
+                <div id="map" style="width: 600px; height: 400px"></div>
+            </div>
+            <div>
+                <label>Адрес:</label>
+                <input type="text" id="address">
+
+                <label>Координаты:</label>
+                <input type="text" id="ypoint" class="form-input">
+
+
+            </div>
+            <a class="btnLogin btn btn-light" id="way" onclick="allerting(7)">Сохранить</a>
+        </div>
+
+
+
+        <div>
+            <table class="table" width="900" cellspacing="0" cellpadding="5">
+                <thead>
+                    <tr>
+                        <th scope="col">Назвние:</th>
+                        <th scope="col">Координаты:</th>
+                        <th scope="col">&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody id="dynamic">
+                    <tr>
+                        <td>
+                            <label>
+                                <input type="text" name="text" value="ул. Добрая">
+                            </label>
+                        </td>
+                        <td>
+                            <label>
+                                <input type="text" name="text" value="48.724803, 44.468239">
+                            </label>
+                        </td>
+                        <td>
+                            <button class="add btnLogin btn btn-light" type="button">Добавить</button>
+                            <button class="del btnLogin btn btn-light" type="button">Удалить</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>
+                                <input type="text" name="text" value="ул. Красивая">
+                            </label>
+                        </td>
+                        <td>
+                            <label>
+                                <input type="text" name="text" value="48.721234, 44.473542">
+                            </label>
+                        </td>
+                        <td>
+                            <button class="add btnLogin btn btn-light" type="button">Добавить</button>
+                            <button class="del btnLogin btn btn-light" type="button">Удалить</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>
+                                <input type="text" name="text" value="ул. Умная">
+                            </label>
+                        </td>
+                        <td>
+                            <label>
+                                <input type="text" name="text" value="48.717174, 44.483618">
+                            </label>
+                        </td>
+                        <td>
+                            <button class="add btnLogin btn btn-light" type="button">Добавить</button>
+                            <button class="del btnLogin btn btn-light" type="button">Удалить</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>
+                                <input type="text" name="text" value="ул. Ленина">
+                            </label>
+                        </td>
+                        <td>
+                            <label>
+                                <input type="text" name="text" value="48.713997, 44.496888">
+                            </label>
+                        </td>
+                        <td>
+                            <button class="add btnLogin btn btn-light" type="button">Добавить</button>
+                            <button class="del btnLogin btn btn-light" type="button">Удалить</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+
+    </div>
+
+    <script>
+        var DynamicTable = (function (GLOB) {
+            var RID = 0;
+            return function (tBody) {
+                /* Если ф-цию вызвали не как конструктор фиксим этот момент: */
+                if (!(this instanceof arguments.callee)) {
+                    return new arguments.callee.apply(arguments);
+                }
+                //Делегируем прослушку событий элементу tbody
+                tBody.onclick = function (e) {
+                    var evt = e || GLOB.event,
+                        trg = evt.target || evt.srcElement;
+                    if (trg.className && trg.className.indexOf("add") !== -1) {
+                        _addRow(trg.parentNode.parentNode, tBody);
+                    } else if (trg.className && trg.className.indexOf("del") !== -1) {
+                        tBody.rows.length > 1 && _delRow(trg.parentNode.parentNode, tBody);
+                    }
+                };
+                var _rowTpl = tBody.rows[0].cloneNode(true);
+                // Корректируем имена элементов формы
+                var _correctNames = function (row) {
+                    var elements = row.getElementsByTagName("*");
+                    for (var i = 0; i < elements.length; i += 1) {
+                        if (elements.item(i).name) {
+                            if (elements.item(i).type &&
+                                elements.item(i).type === "radio" &&
+                                elements.item(i).className &&
+                                elements.item(i).className.indexOf("glob") !== -1) {
+                                elements.item(i).value = RID;
+                            } else {
+                                elements.item(i).name = RID + "[" + elements.item(i).name + "]";
+                            }
+                        }
+                    }
+                    RID++;
+                    return row;
+                };
+                var _addRow = function (before, tBody) {
+                    var newNode = _correctNames(_rowTpl.cloneNode(true));
+                    tBody.insertBefore(newNode, before.nextSibling);
+                };
+                var _delRow = function (row, tBody) {
+                    tBody.removeChild(row);
+                };
+                _correctNames(tBody.rows[0]);
+            };
+        })(this);
+
+    </script>
+    <script>
+        new DynamicTable(document.getElementById("dynamic"));
+    </script>
+
+</body>
+
+
+
+
+
+

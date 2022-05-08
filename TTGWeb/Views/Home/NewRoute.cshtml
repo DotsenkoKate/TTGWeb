@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Создание нового маршрута";
+    Layout = "_LayoutMain";
+}
+<body>
+
+    <h1 align="center">Добавление нового маршрута</h1>
+    <br>
+
+    <div style="margin-left:15rem; margin-right:5rem">
+        <br>
+        <div style="width:60%">
+            <div>
+                <span>Введите номер маршрута</span>
+                <input class="form-control" style="text-align: left;" />
+                <br>
+            </div>
+            <div>
+                <span>Введите стоимость аренды маршрута</span>
+                <input class="form-control" style="text-align: left;" />
+                <br>
+            </div>
+            <div>
+                <span>Введите стоимость проезда по маршруту</span>
+                <input class="form-control" style="text-align: left;" />
+                <br>
+            </div>
+        </div>
+
+
+        <div style="display:flex">
+
+            <div>
+                <a class="btnLogin btn btn-light" asp-area="" asp-controller="Home" asp-action="Editing">Назад</a>
+            </div>
+            <div style="margin-left:10px">
+                <a class="btnLogin btn btn-light" asp-area="" asp-controller="Home" asp-action="Editing" onclick="allerting(5)">Принять</a>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+
+
+

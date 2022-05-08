@@ -1,0 +1,74 @@
+﻿@{
+    ViewData["Title"] = "Новый водитель";
+    Layout = "_LayoutMain";
+}
+<body>
+    <h1 align="center">Добавление нового водителя</h1>
+    <br>
+    <form method="post" style="margin-left:10rem; margin-right:5rem">
+        <div style="width:70%">
+            <div>
+                <span style="font-size: 15pt">ФИО</span>
+                <input class="form-control" style="text-align: left;" />
+                <br>
+            </div>
+            <span style="font-size: 15pt">Паспортные данные</span> <br><br>
+            <div style="display: flex">
+                <div> <label>Серия</label><input class="form-control" style="text-align: left;" />  </div>
+                <div style="margin-left: 10px"> <label>Номер</label> <input class="form-control" style="text-align: left;" /> </div>
+
+            </div>
+            <br>
+            <div>
+                <span style="font-size: 15pt">Номер маршрута</span>
+                <select class="btnLogin btn btn-light" name="route" id="route">
+                    <option value="null"></option>
+                    <option value="98">98</option>
+                    <option value="10с">10с</option>
+                </select>
+            </div>
+            <br>
+            <div>
+                <span style="font-size: 15pt">Марка автомобиля</span>
+                <input class="form-control" style="text-align: left;" />
+                <br>
+            </div>
+
+            <div>
+                <span style="font-size: 15pt">Гос номер автомобиля</span>
+                <input class="form-control" style="text-align: left;" />
+                <br>
+            </div>
+
+            <div>
+                <span style="font-size: 15pt">Логин</span>
+                <input class="form-control" runat="server" style="text-align: left;" />
+                <br>
+            </div>
+            <div>
+                <span style="font-size: 15pt">Пароль</span>
+                <input class="form-control" runat="server" style="text-align: left;" />
+                <br>
+            </div>
+
+        </div>
+        <br>
+
+
+        <div style="display:flex">
+
+            <br>
+            <div>
+                <a class="btnLogin btn btn-light" onclick="javascript:history.back(); return false;">Назад</a>
+            </div>
+            <div style="margin-left:10px">
+                <a class="btnLogin btn btn-light" asp-area="" asp-controller="Home" onclick="allerting(7)">Сохранить</a>
+
+            </div>
+        </div>
+
+    </form>
+    <br>
+
+</body>
+

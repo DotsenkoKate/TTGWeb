@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Профиль";
+    Layout = "_LayoutMain";
+}
+<h1 align="center"> Профиль <br></h1>
+
+<body>
+    <div style="width: 700px;display: block;margin-left: auto;margin-right: auto;">
+        <div>
+            <span style=" font-size: 20pt;">ФИО</span>
+            <input class="form-control" id="owner_name" runat="server" style="text-align: left;" value=@ViewBag.Name />
+            <br>
+        </div>
+        <div>
+            <span style=" font-size: 20pt;">Номер лицензии</span>
+            <input class="form-control" runat="server" style="text-align: left;" value=@ViewBag.License />
+            <br>
+        </div>
+        <div>
+            <span style=" font-size: 20pt;">Логин</span>
+            <input class="form-control" runat="server" style="text-align: left;" value=@ViewBag.Login />
+            <br>
+        </div>
+        <div>
+            <span style=" font-size: 20pt;">Пароль</span>
+            <input class="form-control" runat="server" style="text-align: left;" value=@ViewBag.Password />
+            <br>
+        </div>
+
+
+        <div>
+            <div style="display: inline-block;">
+                <input type="submit" class="btnLogin btn btn-light" style="font-size: 18pt; border-radius: .45rem;" asp-area="" asp-controller="Home" asp-action="SaveProfile" value="Сохранить">
+            </div>
+
+            <div style="display: inline-block;">
+                <a class="btn1 btn btn-danger" asp-area="" asp-controller="Home" asp-action="Login">Выйти</a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+

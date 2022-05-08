@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Авторизация";
+    Layout = "_LayoutStart";
+}
+
+@model LoginViewModel
+<body>
+    <div class="container">
+        <main role="main" class="pb-3">
+
+            <form class="login" method="post" autocomplete="off" style="margin-left:25rem;">
+
+                <h1> Авторизация</h1><br>
+                <div>
+                    <span style=" font-size: 17pt;">Логин</span>
+                    <input class="form-control" asp-for="Login" name="login" runat="server" style="text-align: left;" />
+                    <br>
+                </div>
+                <div>
+                    <span style=" font-size: 17pt;">Пароль</span>
+                    <input class="form-control" asp-for="Password" name="password" runat="server" style="text-align: left;" type="password" />
+                    <br>
+                </div>
+
+                <var style="color: red;">@ViewBag.Message</var>
+
+                <br>
+                <p><a href="../Home/Registration" style="font-size: 12pt">У Вас нет учетной записи? </a></p>
+                <br>
+                <div style="display: flex;justify-content: normal;">
+                    <!---- <a class="btnLogin btn btn-light" style="font-size: 17pt;" asp-area="" asp-controller="Home" asp-action="Profile">Войти</a>-->
+                    <input type="submit" value="Войти" class="btnLogin btn btn-light" style="font-size: 17pt;" asp-controller="Home" asp-action="Login" />
+                </div>
+
+            </form>
+
+        </main>
+    </div>
+
+</body>
+

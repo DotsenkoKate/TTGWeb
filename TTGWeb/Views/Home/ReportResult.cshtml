@@ -1,0 +1,254 @@
+﻿@{
+    ViewData["Title"] = "Результаты отчёта";
+    Layout = "_LayoutMain";
+}
+<body>
+
+    @{
+    }
+    <script src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+    <script>
+        google.charts.load('current', { packages: ['corechart'] });
+        google.charts.setOnLoadCallback(drawTime);
+        google.charts.setOnLoadCallback(drawProfit);
+        google.charts.setOnLoadCallback(drawPassengers);
+        google.charts.setOnLoadCallback(drawIncome_Expenses);
+        google.charts.setOnLoadCallback(drawDriver);
+        google.charts.setOnLoadCallback(drawProfit_Driver);
+
+
+        function drawTime() {
+            // Set Data
+            var data = google.visualization.arrayToDataTable([
+                ['Месяц', 'Время'],
+                ["Январь", 30.45], ["Февраль", 31.22], ["Март", 30.87], ["Апрель", 30.97],
+                ["Май", 31.12], ["Июнь", 30.85]
+            ]);
+            // Set Options
+            var options = {
+                title: 'Динамика изменения среднего времени рейса',
+                hAxis: { title: 'Месяц' },
+                vAxis: { title: 'Среднее время рейса' },
+                legend: 'none'
+            };
+            // Draw
+            var chart = new google.visualization.LineChart(document.getElementById('time'));
+            chart.draw(data, options);
+        }
+        function drawProfit() {
+            // Set Data
+            var data = google.visualization.arrayToDataTable([
+                ['Месяц', 'Сумма'],
+                ["Январь", 8350], ["Февраль", 8150], ["Март", 8540], ["Апрель", 8620],
+                ["Май", 8470], ["Июнь", 8700]
+            ]);
+            // Set Options
+            var options = {
+                title: 'Динамика изменения средней прибыли за смену',
+                hAxis: { title: 'Месяц' },
+                vAxis: { title: 'Средняя прибыль' },
+                legend: 'none'
+            };
+            // Draw
+            var chart = new google.visualization.LineChart(document.getElementById('profit'));
+            chart.draw(data, options);
+        }
+        function drawPassengers() {
+            var data = google.visualization.arrayToDataTable([
+                ['Месяц', 'Количество пассажиров'],
+                ["Январь", 16.8], ["Февраль", 17.2], ["Март", 17.1], ["Апрель", 17.6],
+                ["Май", 17.8], ["Июнь", 17.7]
+            ]);
+            var options = {
+                title: 'Среднее количество пассажиров за рейс'
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('passengers'));
+            chart.draw(data, options);
+        }
+        function drawIncome_Expenses() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Авто', 'Расчетные расходы на бензин', 'Обслуживание и ремонт', { role: 'annotation' }],
+                ['A001AA134', 11000, 2000, ''],
+                ['A002AA134', 12000, 7000, ''],
+                ['A003AA134', 15000, 1000, '']
+            ]);
+
+            var options = {
+                title: 'Расходы',
+                isStacked: true,
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById('income_expenses'));
+            chart.draw(data, options);
+        }
+        function drawDriver() {
+            // Set Data
+            var data = google.visualization.arrayToDataTable([
+                ['ФИО', 'Оценка'],
+                ["Иванов Иван Иванович", 8.45], ["Петров Петр Петрович", 9.22], ["Михайлов Михаил Михайлович", 7.87]
+            ]);
+            // Set Options
+            var options = {
+                title: 'Рейтинг водителя',
+                hAxis: { title: 'Водитель' },
+                vAxis: { title: 'Оценка' },
+                legend: 'none'
+            };
+            // Draw
+            var chart = new google.visualization.ColumnChart(document.getElementById('driver'));
+            chart.draw(data, options);
+        }
+        function drawProfit_Driver() {
+            var data = google.visualization.arrayToDataTable([
+                ['Водитель', 'Прибыль'],
+                ['Иванов Иван Иванович', 80450],
+                ["Петров Петр Петрович", 77300],
+                ["Михайлов Михаил Михайлович", 79320]
+            ]);
+
+            var options = {
+
+                pieSliceText: 'label',
+                title: 'Распределение полученной прибыли',
+                pieStartAngle: 100,
+                pieHole: 0.4,
+
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('profit_driver'));
+            chart.draw(data, options);
+        }
+    </script>
+    <div>
+        <h2 align="center">Отчёт</h2>
+        <div>
+            <div>
+                <span><b>Маршрут №</b></span>
+                <span id="route_name"><b>98</b></span>
+            </div>
+            <div>
+                <span><b>Период: </b></span>
+                <span id="date"><b>01.01.2021-30.06.2021</b></span>
+            </div>
+
+        </div>
+
+        <div>
+            <div>
+                <span>Текущая арендная плата за смену - </span>
+                <span id="route_rent">5000</span>
+            </div>
+            <div>
+                <span>Текущая стоимость проезда - </span>
+                <span id="route_price">25</span>
+            </div>
+            <div>
+                <span>Количество водителей на маршруте - </span>
+                <span id="route_driver_count">3</span>
+            </div>
+            <div>
+                <span>Протяженность маршрута(км) - </span>
+                <span id="route_distance">11,23</span>
+            </div>
+            <div>
+                <span>Оценка маршрута - </span>
+                <span id="route_raiting">8,2</span>
+            </div>
+            <div>
+                <br>
+                <h5><b>Общие данные</b></h5>
+                <div>
+                    <div id="time" style="width:100%; max-width:600px; height:500px;"></div>
+                    <span>Оценка модели:</span>
+                    <span id="raiting_time">Ухудшение</span>
+                </div>
+                <div>
+                    <div id="profit" style="width:100%; max-width:600px; height:500px;"></div>
+                    <span>Оценка модели:</span>
+                    <span id="raiting_profit">Улучшение</span>
+                </div>
+                <div>
+                    <div id="passengers" style="width:100%; max-width:700px; height:500px;"></div>
+                    <span>Оценка модели:</span>
+                    <span id="raiting_passengers">Улучшение</span>
+                </div>
+                <div>
+                    <span>Рекомендация модели:</span>
+                    <span id="recomendation1">Изменения пути и количества рейсов не требуются</span>
+                </div>
+
+                <div>
+                    <br>
+                    <h5><b>Расходы</b></h5>
+
+                    <div id="income_expenses" style="width:100%; max-width:900px; height:500px;"></div>
+                    <div>
+                        <span>Рекомендация модели:</span>
+                        <span id="recomendation2">Умеренные расходы.</span>
+                        <span>Самый дорогой ремонт, следует сверить чек на ремонт с суммой в системе:</span>
+                        <span id="comments">A002AA134</span>
+                    </div>
+                </div>
+                <br>
+                <h5><b>Водители</b></h5>
+                <span>Общая информация о водителях <br></span>
+                <table class="table">
+                    <tr><th>№</th><th>ФИО</th><th>Кол-во рейсов</th><th>Заработанная прибыль</th><th>Среднее время движения</th><th>Средняя скорость движения</th><th>Производительность(средняя прибыль за рейс)</th></tr> <!--ряд с ячейками заголовков-->
+                    <tr><td>1</td><td>Иванов Иван Иванович</td><td>189</td><td>80450</td><td>30,40</td><td>53,43</td><td>425,66</td></tr>
+                    <tr><td>2</td><td>Петров Петр Петрович</td><td>175</td><td>77300</td><td>31,18</td><td>53,03</td><td>441,71</td></tr>
+                    <tr><td>3</td><td>Михайлов Михаил Михайлович</td><td>180</td><td>79320</td><td>30,44</td><td>53,80</td><td>440,67</td></tr>
+                </table>
+                <br>
+
+                <div id="driver" style="width:100%; max-width:600px; height:500px;"></div>
+                <div id="profit_driver" style="width:100%; max-width:700px; height:500px;"></div>
+                <div>
+                    <span><b>Наихудшие рейсы</b><br></span>
+                    <table class="table">
+                        <tr><th>№</th><th>ФИО</th><th>Гос номер автомобиля</th><th>Дата смены</th><th>Сумма</th></tr> <!--ряд с ячейками заголовков-->
+                        <tr><td>1</td><td>Иванов Иван Иванович</td><td>A001AA134</td><td>02.01.2021</td><td>7050</td></tr>
+                        <tr><td>2</td><td>Михайлов Михаил Михайлович</td><td>A003AA134</td><td>12.02.2021</td><td>6550</td></tr>
+                        <tr><td>3</td><td>Михайлов Михаил Михайлович</td><td>A003AA134</td><td>21.02.2021</td><td>5800</td></tr>
+                        <tr><td>4</td><td>Петров Петр Петрович</td><td>A002AA134</td><td>21.03.2021</td><td>7450</td></tr>
+                        <tr><td>5</td><td>Михайлов Михаил Михайлович</td><td>A003AA134</td><td>16.06.2021</td><td>7150</td></tr>
+                    </table>
+                    <br>
+                </div>
+                <div>
+                    <span><b>Наилучшие рейсы</b><br></span>
+                    <table class="table">
+                        <tr><th>№</th><th>ФИО</th><th>Гос номер автомобиля</th><th>Дата смены</th><th>Сумма</th></tr> <!--ряд с ячейками заголовков-->
+                        <tr><td>1</td><td>Иванов Иван Иванович</td><td>A001AA134</td><td>12.01.2021</td><td>9000</td></tr>
+                        <tr><td>2</td><td>Иванов Иван Иванови</td><td>A001AA134</td><td>28.02.2021</td><td>8570</td></tr>
+                        <tr><td>3</td><td>Михайлов Михаил Михайлович</td><td>A003AA134</td><td>28.02.2021</td><td>8240</td></tr>
+                        <tr><td>4</td><td>Петров Петр Петрович</td><td>A002AA134</td><td>07.03.2021</td><td>8450</td></tr>
+                        <tr><td>5</td><td>Михайлов Михаил Михайлович</td><td>A003AA134</td><td>01.06.2021</td><td>7950</td></tr>
+                    </table>
+                    <br>
+                </div>
+                <div>
+                    <span><b>Общие рекомендации по оценке работы водителей: </b></span>
+                    <span id="recomendation3">Худшие рейсы практически не приносят водителям дохода, водители приносят приблизительно одинаковый доход.</span>
+                </div>
+
+                <div>
+                    <span><b>Возможные изменения в арендной плате или цене: </b></span>
+                    <span id="recomedationup">Система рекомендует увеличить арендную плату до </span>
+                    <span id="sumuprecomendation">5051,59 руб.</span>
+                </div>
+            </div>
+        </div>
+
+
+        <div>
+            <br>
+            <a class="btnLogin btn btn-light" asp-area="" asp-controller="Home" asp-action="Report">Назад</a>
+        </div>
+
+
+    </div>
+</body>
