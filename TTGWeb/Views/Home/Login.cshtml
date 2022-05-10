@@ -2,7 +2,7 @@
     ViewData["Title"] = "Авторизация";
     Layout = "_LayoutStart";
 }
-
+<script src="~/js/LoginScript.js" asp-append-version="true"></script>
 @model LoginViewModel
 <body>
     <div class="container">
@@ -29,7 +29,7 @@
                 <br>
                 <div style="display: flex;justify-content: normal;">
                     <!---- <a class="btnLogin btn btn-light" style="font-size: 17pt;" asp-area="" asp-controller="Home" asp-action="Profile">Войти</a>-->
-                    <input type="submit" value="Войти" class="btnLogin btn btn-light" style="font-size: 17pt;" asp-controller="Home" asp-action="Login" />
+                    <input type="submit" value="Войти" class="btnLogin btn btn-light" style="font-size: 17pt;" onclick="getUsers()" asp-controller="Home" asp-action="Login" />
                 </div>
 
             </form>

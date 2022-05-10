@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Net;
 using TTGWeb.Models;
 
 namespace TTGWeb.Controllers
@@ -8,16 +9,13 @@ namespace TTGWeb.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private static readonly HttpClient client = new HttpClient();
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
         public IActionResult Login()
         {
             return View();
@@ -25,6 +23,25 @@ namespace TTGWeb.Controllers
         [HttpPost]
         public IActionResult Login(string login, string password)
         {
+
+            WebRequest request = WebRequest.Create("https://jsonplaceholder.typicode.com/todos/1");
+            WebResponse response = request.GetResponse();
+            using (Stream stream = response.GetResponseStream())
+            {
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    string line = "";
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        Console.WriteLine(line);
+                    }
+                }
+            }
+            response.Close();
+            Console.WriteLine("Запрос выполнен");
+
+            //ProfileModel model = new ProfileModel();
+            //model.FromString(line);
 
             if (login == "a" && password == "123")
             {
@@ -37,11 +54,12 @@ namespace TTGWeb.Controllers
                     Password = password
                 });
             }
+
             else
             {
                 ViewBag.Message = "Неверный пароль или логин!";
-
             }
+
             return View("Login");
         }
 
@@ -50,10 +68,12 @@ namespace TTGWeb.Controllers
         {
             return View();
         }
+        
         public IActionResult Registration()
         {
             return View();
         }
+
         public IActionResult Profile()
         {
             return View();
@@ -65,10 +85,12 @@ namespace TTGWeb.Controllers
             ViewData["Login"] = login;
             ViewData["Password"] = password;
 
-            return View("Profile", login);
+            return View("Profile");
         }
-        public IActionResult MyRoutes() {
-            return View();
+        public IActionResult MyRoutes(string login) {
+
+            ViewData["Name"] = login;
+            return View("MyRoutes", login);
         }
         public IActionResult Report()
         {
