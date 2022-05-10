@@ -20,10 +20,9 @@ namespace TTGWeb.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public IActionResult Login(string login, string password)
-        {
 
+        public IActionResult CheckLogin(string login, string password)
+        {
             WebRequest request = WebRequest.Create("https://jsonplaceholder.typicode.com/todos/1");
             WebResponse response = request.GetResponse();
             using (Stream stream = response.GetResponseStream())
@@ -45,14 +44,8 @@ namespace TTGWeb.Controllers
 
             if (login == "a" && password == "123")
             {
-                return RedirectToAction("ShowProfile", "Home", new
-                {
-                    Name = "Иванов " +
-                    "Иван Иванович",
-                    License = "123456777",
-                    Login = login,
-                    Password = password
-                });
+                Console.WriteLine(login);
+                return RedirectToAction("ShowProfile", "Home", new {login});
             }
 
             else
@@ -78,12 +71,41 @@ namespace TTGWeb.Controllers
         {
             return View();
         }
-        public IActionResult ShowProfile(string name, string license, string login, string password)
+        public IActionResult ShowProfile(string login)
         {
-            ViewData["Name"] = name;
-            ViewData["License"] = license;
-            ViewData["Login"] = login;
-            ViewData["Password"] = password;
+            if (login == null)
+                Console.WriteLine("NULL");
+            else
+                Console.WriteLine(login);
+
+            ProfileModel model = new ProfileModel();
+
+            /*
+            WebRequest request = WebRequest.Create("https://jsonplaceholder.typicode.com/todos/1");
+            WebResponse response = request.GetResponse();
+            using (Stream stream = response.GetResponseStream())
+            {
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    string line = "";
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        Console.WriteLine(line);
+                    }
+                }
+            }
+            response.Close();
+            Console.WriteLine("Запрос выполнен");
+            */
+            model.Name = "Петр";
+            model.Login = login;
+            model.License = "123456789";
+            model.Password = "123";
+
+            ViewData["Name"] = model.Name;
+            ViewData["License"] = model.License;
+            ViewData["Login"] = model.Login;
+            ViewData["Password"] = model.Password;
 
             return View("Profile");
         }
