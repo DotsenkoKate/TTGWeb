@@ -31,10 +31,10 @@
         <div style="display:flex">
 
             <div>
-                <a class="btnLogin btn btn-light" asp-area="" asp-controller="Home" asp-action="Editing">Назад</a>
+                <a class="btnLogin btn btn-light" onclick="javascript:history.back(); return false;" asp-route-login=@ViewBag.Login>Назад</a>
             </div>
             <div style="margin-left:10px">
-                <a class="btnLogin btn btn-light" asp-area="" asp-controller="Home" asp-action="Editing" onclick="allerting(5)">Принять</a>
+                <a class="btnLogin btn btn-light" asp-area="" asp-controller="Home" asp-action="Editing" asp-route-login=@ViewBag.Login onclick="allerting(5)">Принять</a>
 
             </div>
         </div>

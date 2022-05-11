@@ -31,7 +31,7 @@
                     <option value="98">98</option>
                     <option value="10c">10с</option>
                 </select>
-                <a class="btnLogin btn btn-light" asp-area="" asp-controller="Home" asp-action="NewRoute">Добавить новый маршрут</a>
+                <a class="btnLogin btn btn-light" asp-area="" asp-controller="Home" asp-action="NewRoute" asp-route-login=@ViewBag.Login>Добавить новый маршрут</a>
             </div>
             <div id="route_choose">
             </div>
@@ -50,7 +50,7 @@
                                 <li>ул. Умная</li>
                                 <li>ул. Ленина</li>
                             </ul>
-                            <a class="btnLogin btn btn-light" id="way" asp-area="" asp-controller="Home" asp-action="EditingRoute">Изменить</a>
+                            <a class="btnLogin btn btn-light"  id="way" asp-area="" asp-controller="Home" asp-action="EditingRoute"  asp-route-login=@ViewBag.Login>Изменить</a>
                         </div>
                         <div>
                             <div id="map98" style="width: 600px; height: 400px"></div>
@@ -132,7 +132,7 @@
                         <tr><td>5</td><td>Степанов Сергей Андреевич</td><td>A005AA134</td><td>Mercedes-Benz</td><td><a href=#>Изменить</a></td></tr> <!--ряд с ячейками тела таблицы-->
                         <tr><td>6</td><td>Кукушкин Петр Владимирович</td><td>A006AA134</td><td>Газель</td><td><a href=#>Изменить</a></td></tr> <!--ряд с ячейками тела таблицы-->
                     </table>
-                    <a class="btnLogin btn btn-light" id="add_new_driver" asp-area="" asp-controller="Home" asp-action="NewDriver">Добавить водителя</a>
+                    <a class="btnLogin btn btn-light" id="add_new_driver" asp-area="" asp-controller="Home" asp-action="NewDriver" asp-route-login=@ViewBag.Login>Добавить водителя</a>
                     <br>
                 </div>
                 <br>

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Net;
+using System.Text.Json;
 using TTGWeb.Models;
 
 namespace TTGWeb.Controllers
@@ -66,21 +67,17 @@ namespace TTGWeb.Controllers
         {
             return View();
         }
-
+        
         public IActionResult Profile()
         {
             return View();
         }
         public IActionResult ShowProfile(string login)
         {
-            if (login == null)
-                Console.WriteLine("NULL");
-            else
-                Console.WriteLine(login);
 
             ProfileModel model = new ProfileModel();
-
-            /*
+            /*string result = "";
+    
             WebRequest request = WebRequest.Create("https://jsonplaceholder.typicode.com/todos/1");
             WebResponse response = request.GetResponse();
             using (Stream stream = response.GetResponseStream())
@@ -90,13 +87,18 @@ namespace TTGWeb.Controllers
                     string line = "";
                     while ((line = reader.ReadLine()) != null)
                     {
-                        Console.WriteLine(line);
+                        result += line + "\n";
                     }
                 }
             }
             response.Close();
-            Console.WriteLine("Запрос выполнен");
+
+            Test? test = JsonSerializer.Deserialize<Test>(result);
+            Console.WriteLine(test.userId.ToString());
+            Console.WriteLine(test.id.ToString());
+            Console.WriteLine(test.title);
             */
+
             model.Name = "Петр";
             model.Login = login;
             model.License = "123456789";
@@ -111,36 +113,44 @@ namespace TTGWeb.Controllers
         }
         public IActionResult MyRoutes(string login) {
 
-            ViewData["Name"] = login;
+            ViewData["Login"] = login;
             return View("MyRoutes", login);
         }
-        public IActionResult Report()
+        public IActionResult Report(string login)
         {
-            return View();
+            ViewData["Login"] = login;
+            return View("Report", login);
         }
-        public IActionResult ReportResult()
+        public IActionResult ReportResult(string login)
         {
-            return View();
+            ViewData["Login"] = login;
+            return View("ReportResult", login);
         }
-        public IActionResult Editing()
+        public IActionResult Editing(string login)
         {
-            return View();
+
+            ViewData["Login"] = login;
+            return View("Editing", login);
         }
-        public IActionResult EditingDriver()
+        public IActionResult EditingDriver(string login)
         {
-            return View();
+            ViewData["Login"] = login;
+            return View("EditingDriver", login);
         }
-        public IActionResult NewDriver()
+        public IActionResult NewDriver(string login)
         {
-            return View();
+            ViewData["Login"] = login;
+            return View("NewDriver", login);
         }
-        public IActionResult EditingRoute()
+        public IActionResult EditingRoute(string login)
         {
-            return View();
+            ViewData["Login"] = login;
+            return View("EditingRoute", login);
         }
-        public IActionResult NewRoute()
+        public IActionResult NewRoute(string login)
         {
-            return View();
+            ViewData["Login"] = login;
+            return View("NewRoute", login);
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

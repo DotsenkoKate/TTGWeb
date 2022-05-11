@@ -7,7 +7,7 @@
     <script src="polylineEditor.js" type="text/javascript"></script>
     <h2 align="center">Редактирование остановок</h2>
 
-    <button class="btnLogin btn btn-light" value="Показать карту" onclick="init1()">Показать карту</button>
+    <button class="btnLogin btn btn-light" value="Showmap" onclick="test()">Показать карту</button>
 
     <div style="display:flex">
         <div>
@@ -25,8 +25,6 @@
             </div>
             <a class="btnLogin btn btn-light" id="way" onclick="allerting(7)">Сохранить</a>
         </div>
-
-
 
         <div>
             <table class="table" width="900" cellspacing="0" cellpadding="5">
@@ -161,6 +159,22 @@
     </script>
     <script>
         new DynamicTable(document.getElementById("dynamic"));
+    </script>
+
+    <script>
+
+         var myMap;
+         ymaps.ready(init1);
+  function init1()
+         {
+         myMap = new ymaps.Map("map", {
+        center: [48.717987, 44.481111],
+         zoom: 11}, {
+         balloonMaxWidth: 200,
+        searchControlProvider: 'yandex#search'
+        });
+         }
+
     </script>
 
 </body>

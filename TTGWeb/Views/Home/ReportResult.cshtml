@@ -246,7 +246,7 @@
 
         <div>
             <br>
-            <a class="btnLogin btn btn-light" asp-area="" asp-controller="Home" asp-action="Report">Назад</a>
+            <a class="btnLogin btn btn-light"  onclick="javascript:history.back(); return false;" asp-route-login=@ViewBag.Login>Назад</a>
         </div>
 
 

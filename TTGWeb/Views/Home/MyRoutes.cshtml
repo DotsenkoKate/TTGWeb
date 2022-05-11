@@ -5,17 +5,21 @@
 <body>
     <script src="https://api-maps.yandex.ru/2.1/?apikey=35171b98-e159-494e-9a49-fb4f12e60d78&lang=ru_RU" type="text/javascript"></script>
     <script src="placemark.js" type="text/javascript"></script>
-
+    <div style="display:flex"> 
     <label style="font-size: 24px; margin-right: 24px;">Выберете маршрут</label>
-    <select class="btnLogin btn btn-light" name="route" id="route1" onchange="check_my_route()">
+    <select class="btnLogin btn btn-light" name="route" id="RouteOnMyRoutes" onchange="check_my_route()">
         
         <option value="null"></option>
         <option value="98">98</option>
         <option value="10c">10c</option>
     </select>
     <br>
+    <a class="btnLogin btn btn-light" style="margin: 0 15px;" asp-area="" asp-controller="Home" asp-action="NewRoute" asp-route-login=@ViewBag.Login>Добавить новый маршрут</a>
+    </div>
+
     <br>
     <br>
+    
 
     <div id="main">
     </div>
@@ -52,7 +56,7 @@
 
                         </table>
                         <br>
-                        <a class="btnLogin btn btn-light" asp-area="" asp-controller="Home" asp-action="Editing">Отредактировать</a>
+                        <a class="btnLogin btn btn-light" asp-area="" asp-controller="Home" asp-action="Editing" asp-route-login=@ViewBag.Login>Отредактировать</a>
                     </div>
 
                 </div>
@@ -89,7 +93,7 @@
                             <tr><td>3</td><td>Кукушкин Петр Владимирович</td><td>7,2</td><td>A006AA134</td><td>Газель</td><td>На ремонте</td></tr> <!--ряд с ячейками тела таблицы-->
                         </table>
                         <br>
-                        <a class="btnLogin btn btn-light" asp-area="" asp-controller="Home" asp-action="Editing">Отредактировать</a>
+                        <a class="btnLogin btn btn-light" asp-area="" asp-controller="Home" asp-action="Editing" asp-route-login=@ViewBag.Login>Отредактировать</a>
                     </div>
 
                 </div>

@@ -1,6 +1,8 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
+const { deserialize } = require("v8");
+
 // Write your JavaScript code.
 
 function show(param_div_id) {
@@ -40,7 +42,7 @@ function check_route() {
     }
 }
 function check_my_route() {
-    let a = document.getElementById('route1').value;
+    let a = document.getElementById('RouteOnMyRoutes').value;
     if (a == 'null') {
         show2('null')
     }
@@ -198,6 +200,8 @@ function init() {
 
 
 function init1() {
+    
+    
     var myMap = new ymaps.Map("map", {
         center: [48.717987, 44.481111],
         zoom: 11
@@ -244,7 +248,6 @@ function init1() {
     ], {}, {
         // Ширину линии.
         strokeWidth: 3,
-        // Добавляем в контекстное меню новый пункт, позволяющий удалить ломаную.
 
     });
 
@@ -303,5 +306,10 @@ function init1() {
 
 }
 
+function test()
+{
+    ymaps.ready(init1);
+
+}
 
 
