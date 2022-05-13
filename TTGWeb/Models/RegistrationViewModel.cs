@@ -3,8 +3,9 @@
 
 namespace TTGWeb.Models
 {
-    public class RegistrationViewModel
+    public class NewUser
     {
+        
         public int RegId { get; set; }
   
         [Required(ErrorMessage = "Не указано ФИО пользователя")]
@@ -12,7 +13,6 @@ namespace TTGWeb.Models
 
         [Required(ErrorMessage = "Не указан номер лицензии")]
         public string License { get; set; }
-        
 
         [Required(ErrorMessage = "Не указан логин")]
         public string Login { get; set; }

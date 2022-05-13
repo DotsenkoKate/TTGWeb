@@ -1,7 +1,7 @@
-﻿@model TTGWeb.Models.RegistrationViewModel
+﻿@model TTGWeb.Models.NewUser
 
 @{
-    ViewData["Title"] = "Авторизация";
+    ViewData["Title"] = "Регистрация";
     Layout = "_LayoutStart";
 }
 
@@ -12,28 +12,28 @@
                 <h1 style="text-align: center"> Регистрация</h1><br>
                 <div>
                     <span style="font-size: 17pt;">ФИО</span>
-                    <input class="form-control" asp-for="Name" name="name" runat="server" style="text-align: left;" />
+                    <input class="form-control" asp-for="Name" name="name" runat="server" style="text-align: left;" required />
                     <br>
                 </div>
                 <div>
                     <span style="font-size: 17pt;">Номер лицензии</span>
-                    <input class="form-control" asp-for="License" name="license" runat="server" style="text-align: left;" />
+                    <input class="form-control" asp-for="License" name="license" runat="server" style="text-align: left;" required />
                     <br>
                 </div>
                 <div>
                     <span style="font-size: 17pt;">Логин</span>
-                    <input class="form-control" asp-for="Login" name="login" runat="server" style="text-align: left;" />
+                    <input class="form-control" asp-for="Login" name="login" runat="server" style="text-align: left;" required/>
                     <br>
                 </div>
                 <div>
                     <span style="font-size: 17pt;">Пароль</span>
-                    <input class="form-control" asp-for="Password" name="password" runat="server" style="text-align: left;" type="password" />
+                    <input class="form-control" asp-for="Password" name="password" runat="server" style="text-align: left;" type="password" required />
                     <br>
                 </div>
                 <br>
                 <div style="display: flex;justify-content: center;">
-                    <!----<a class="btnLogin btn btn-light" asp-area="" asp-controller="Home" asp-action="Login">Зарегистрироваться</a> -->
-                    <input type="submit" style="font-size: 16pt;" value="Зарегистрироваться" class="btnLogin btn btn-light" asp-controller="Home" asp-action="Registration" />
+                    <!----<a class="btnLogin btn btn-light"  asp-controller="Home" asp-action="Registration">Зарегистрироваться</a> -->
+                    <input type="submit" style="font-size: 16pt;" value="Зарегистрироваться" class="btnLogin btn btn-light" onclick="CreateNewUser" />
                 </div>
                 <br>
             </form>

@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Net;
+using System.Text;
 using System.Text.Json;
 using TTGWeb.Models;
+
 
 namespace TTGWeb.Controllers
 {
@@ -57,17 +59,11 @@ namespace TTGWeb.Controllers
             return View("Login");
         }
 
-        [HttpPost]
-        public IActionResult SaveProfile(string name, string license, string login, string password)
-        {
-            return View();
-        }
-        
         public IActionResult Registration()
         {
             return View();
         }
-        
+     
         public IActionResult Profile()
         {
             return View();

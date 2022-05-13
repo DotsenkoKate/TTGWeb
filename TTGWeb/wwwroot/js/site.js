@@ -297,6 +297,123 @@ function ShowMapEditigRoute() {
     
 }
 
+function GetRequest()
+{
+    // 1. Создаём новый объект XMLHttpRequest
+    var xhr = new XMLHttpRequest();
 
-    
+    // 2. Конфигурируем его: GET-запрос на URL
+    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos/1', false);
 
+    // 3. Отсылаем запрос
+    xhr.send();
+
+    // 4. Если код ответа сервера не 200, то это ошибка
+    if (xhr.status != 200) {
+        // обработать ошибку
+        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
+    } else {
+        // вывести результат
+
+        var tomUser = JSON.parse(xhr.responseText);
+       //document.write(tomUser.title); // Tom
+        alert(tomUser.title);
+        //alert(xhr.responseText); // responseText -- текст ответа.
+
+    }
+
+}
+
+function PostRequest()
+{
+    // 1. Создаём новый объект XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+
+    // 2. Конфигурируем его: GET-запрос на URL
+    xhr.open('POST', 'https://jsonplaceholder.typicode.com/todos/1', true);
+
+    // 3. Отсылаем запрос
+    xhr.send();
+
+    // 4. Если код ответа сервера не 200, то это ошибка
+    if (xhr.status != 200) {
+        // обработать ошибку
+        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
+    } else {
+        // вывести результат
+
+        var tomUser = JSON.parse(xhr.responseText);
+        //document.write(tomUser.title); // Tom
+        alert(tomUser.title);
+        //alert(xhr.responseText); // responseText -- текст ответа.
+
+    }
+
+
+}
+function SaveNewProfileInfo() {
+    var info = {
+        owner_name: $('#name').val(),
+        license: $('#license').val(),
+        login: $('#login').val(),
+        password: $('#password').val(),
+    }
+
+    const url = 'https://randomuser.me/api';
+
+    var request = new Request(url, {
+        method: 'POST',
+        body: JSON.stringify(info),
+        headers: {'content-type': 'application/json' }
+    });
+
+    fetch(request)
+        .then(
+            function (response) {
+                if (response.status !== 200) {
+                    alert('Что-то пошло не так. Код ошибки: ' + response.status);
+                    
+                    return;
+                }
+                else {
+                    alert("Данные успешно изменены!");
+                    //Придумать что-то для переадресации на страницу авторизациии!!!
+                    window.location.href = '/';
+                }
+            });
+
+}
+/*
+function CreateNewUser()
+{
+    var data = {
+        owner_name: $('#name').val(),
+        license: $('#license').val(),
+        login: $('#login').val(),
+        password: $('#password').val(),
+    }
+
+    const url = 'https://randomuser.me/api';
+
+    var request = new Request(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'content-type': 'application/json' }
+    });
+
+    fetch(request)
+        .then(
+            function (response) {
+                if (response.status !== 200) {
+                    alert('Что-то пошло не так. Код ошибки: ' + response.status);
+
+                    return;
+                }
+                else {
+                    alert("Вы успешно зарегистрированы!");
+                    //Придумать что-то для переадресации на страницу авторизациии!!!
+                    window.location.href = '/';
+                }
+            });
+}
+*/
