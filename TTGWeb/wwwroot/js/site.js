@@ -14,10 +14,6 @@ function show1(param_div_id) {
     document.getElementById('route_choose').innerHTML = document.getElementById(param_div_id).innerHTML;
     init();
 }
-function show2(param_div_id) {
-    document.getElementById('main').innerHTML = document.getElementById(param_div_id).innerHTML;
-    init();
-}
 function check() {
     let a = document.getElementById('route_choose_edit').value;
     if (a == 'null') {
@@ -43,17 +39,13 @@ function check_route() {
         show1('10c')
     }
 }
-function check_my_route() {
-    let a = document.getElementById('RouteOnMyRoutes').value;
-    if (a == 'null') {
-        show2('null')
-    }
-    else if (a == '98') {
-        show2('98')
-    }
-    else if (a == '10c') {
-        show2('10c')
-    }
+function GetRoutesOnMyRoutes() {
+    let a = document.getElementById('routeOnMyRoutes').value;
+    document.getElementById('main').innerHTML = document.getElementById("notnull").innerHTML;
+    document.getElementById("routename").innerHTML = a;
+    //Туть должен быть запрос к серверу на получение водятлов
+    document.getElementById("drivercount").innerHTML = 2;
+    init(a);
 }
 function allerting(message) {
     let a = message;
@@ -100,9 +92,9 @@ $(function () {
     });
 });
 
-function init() {
-    // Создание карты.
-    var myMap = new ymaps.Map("map98", {
+function init(a) {
+  // Создание карты.
+     myMap = new ymaps.Map("map98", {
         center: [48.717987, 44.481111],
         zoom: 12,
         controls: ['fullscreenControl', 'zoomControl']
@@ -376,7 +368,7 @@ function SaveNewProfileInfo() {
                     return;
                 }
                 else {
-                    alert("Данные успешно изменены!");
+                    alert("Данные успешно изменены!Авторизуйтесь, чтобы продолжить работу");
                     //Придумать что-то для переадресации на страницу авторизациии!!!
                     window.location.href = '/';
                 }
@@ -417,3 +409,52 @@ function CreateNewUser()
             });
 }
 */
+
+function GetMyRoutes() {
+    // 1. Создаём новый объект XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+    var res;
+
+    // 2. Конфигурируем его: GET-запрос на URL
+    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos', false);
+
+    // 3. Отсылаем запрос
+    xhr.send();
+
+    // 4. Если код ответа сервера не 200, то это ошибка
+    if (xhr.status != 200) {
+        // обработать ошибку
+        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
+    } else {
+        // вывести результат
+
+        res = JSON.parse(xhr.responseText);
+
+    }
+
+    return res;
+}
+function AddOption(oListbox, text, value, isDefaultSelected, isSelected) {
+    var oOption = document.createElement("option");
+    oOption.appendChild(document.createTextNode(text));
+    oOption.setAttribute("value", value);
+
+    if (isDefaultSelected) oOption.defaultSelected = true;
+    else if (isSelected) oOption.selected = true;
+
+    oListbox.appendChild(oOption);
+}
+function SelectOptionOnMyRoutes() {
+    var objSel = document.getElementById("routeOnMyRoutes");
+    var routesList = GetMyRoutes();
+
+    AddOption(objSel, " ", "null", true);
+
+    routesList.map(
+        (route) =>
+        {
+            AddOption(objSel, route.id, route.id, false);
+        }
+    );
+
+}
