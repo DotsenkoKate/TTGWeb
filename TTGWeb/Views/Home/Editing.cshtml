@@ -2,45 +2,35 @@
     ViewData["Title"] = "Редактирование";
     Layout = "_LayoutMain";
 }
-<body>
+<body onload="SelectOptionOnEditing()">
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=35171b98-e159-494e-9a49-fb4f12e60d78&lang=ru_RU" type="text/javascript"> </script>
+    <script src="placemark.js" type="text/javascript"></script>
     <h1 align="center">Параметры редактирования</h1>
     <br>
     <div>
         <label style="font-size: 24px; margin-right: 24px;">Выберете категорию</label>
-        <select class="btnLogin btn btn-light" name="choose_edit" id="route_choose_edit" onchange="check()">
+        <select class="btnLogin btn btn-light" id="choose_editing" onchange="ChoosenParamertForEditing()">
             <option value="null"> </option>
             <option value="route">Маршрут</option>
             <option value="driver">Водители</option>
         </select>
     </div>
 
-    <script src="https://api-maps.yandex.ru/2.1/?apikey=35171b98-e159-494e-9a49-fb4f12e60d78&lang=ru_RU" type="text/javascript"> </script>
-    <script src="placemark.js" type="text/javascript"></script>
-
-    <div id="main">
-    </div>
-
+    <div id="main"></div>
     <div id="hidden_div">
-        <div id="null" style=display:none> </div>
-
+        <div id="null" style=display:none>
+        </div>
         <div id="route" style=display:none>
             <div>
                 <label style="font-size: 24px; margin-right: 24px;">Выберете номер маршрута</label>
-                <select class="btnLogin btn btn-light" name="choose_route" id="choose_route" onchange="check_route()">
-                    <option value="null"> </option>
-                    <option value="98">98</option>
-                    <option value="10c">10с</option>
-                </select>
-                <a class="btnLogin btn btn-light" asp-area="" asp-controller="Home" asp-action="NewRoute" asp-route-login=@ViewBag.Login>Добавить новый маршрут</a>
+                <select class="btnLogin btn btn-light" id="chosenRouteOnEditing" onchange="GetRoutesOnEditing()"></select>
             </div>
-            <div id="route_choose">
-            </div>
-            <div id="hidden_div1">
-                <div id="null" style=display:none>
-                </div>
-                <div id="98" style=display:none>
-                    <a class="btnLogin btn btn-light" onclick="allerting(3)">Удалить маршрут</a>
 
+            <div id="route_choose"></div>
+            <div id="hidden_div1">
+                <div id="null" style=display:none></div>
+                <div id="notnull" style=display:none>
+                    <a class="btnLogin btn btn-light" onclick="allerting(3)">Удалить маршрут</a>
                     <div style="display: flex; justify-content: space-between">
                         <div style="margin-left: 10px;">
                             <label style="font-size: 20px;">Список остановок</label>
@@ -50,16 +40,16 @@
                                 <li>ул. Умная</li>
                                 <li>ул. Ленина</li>
                             </ul>
-                            <a class="btnLogin btn btn-light"  id="way" asp-area="" asp-controller="Home" asp-action="EditingRoute"  asp-route-login=@ViewBag.Login>Изменить</a>
+                            <a class="btnLogin btn btn-light" id="way" asp-area="" asp-controller="Home" asp-action="EditingRoute" asp-route-login=@ViewBag.Login>Изменить</a>
                         </div>
                         <div>
-                            <div id="map98" style="width: 600px; height: 400px"></div>
+                            <div id="mapMyRoute" style="width: 600px; height: 400px"></div>
 
                         </div>
                         <div style="margin-left: 50px;">
                             <div>
                                 <span>Арендная плата</span>
-                                <input class="form-control" name="rent" style="text-align: left;" value="5000" />
+                                <input class="form-control" id="pricefordriver" style="text-align: left;" value="0" />
                                 <br>
                                 <a class="btnLogin btn btn-light" id="rent" onclick="allerting(1)">Изменить</a>
                                 <br>
@@ -67,7 +57,7 @@
                             <br>
                             <div>
                                 <span>Стоимость проезда</span>
-                                <input class="form-control" name="price" style="text-align: left;" value="25" />
+                                <input class="form-control" id="priceforpassangers" style="text-align: left;" value="0" />
                                 <br>
                                 <a class="btnLogin btn btn-light" id="price" onclick="allerting(2)">Изменить</a>
                                 <br>
@@ -79,65 +69,26 @@
 
                 </div>
 
-                <div id="10c" style=display:none>
-                    <a class="btnLogin btn btn-light" onclick="allerting(3)">Удалить маршрут</a>
-                    <div style="display: flex; justify-content: space-between">
-
-                        <div>
-                            <label style="font-size: 20px;">Список остановок</label>
-                            <ul>
-                                <li>ул. Злая</li>
-                                <li>ул. Страшная</li>
-                                <li>ул. Тупая</li>
-                                <li>ул. Маркса</li>
-                            </ul>
-                            <a class="btnLogin btn btn-light" id="way" onclick="allerting(4)">Изменить</a>
-                        </div>
-                        <div>
-                            <div id="map10c" style="width: 600px; height: 400px"></div>
-
-                        </div>
-                        <div style="margin-left: 50px;">
-                            <div>
-                                <span>Арендная плата</span>
-                                <input class="form-control" name="rent" style="text-align: left;" value="5000" />
-                                <br>
-                                <a class="btnLogin btn btn-light" id="rent" onclick="allerting(1)">Изменить</a>
-                                <br>
-                            </div>
-                            <br>
-                            <div>
-                                <span>Стоимость проезда</span>
-                                <input class="form-control" name="price" style="text-align: left;" value="25" />
-                                <br>
-                                <a class="btnLogin btn btn-light" id="price" onclick="allerting(2)">Изменить</a>
-                                <br>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div id="driver" style=display:none>
-                <div>
-                    <span><b>Водители: </b><br></span>
-                    <table class="table">
-                        <tr><th>№</th><th>ФИО</th><th>Гос номер автомобиля</th><th>Марка автомобиля</th><th>Действие</th></tr> <!--ряд с ячейками заголовков-->
-                        <tr><td>1</td><td>Иванов Иван Иванович</td><td>A001AA134</td><td>Газель</td><td><a href="EditingDriver">Изменить</a></td></tr> <!--ряд с ячейками тела таблицы-->
-                        <tr><td>2</td><td>Петров Петр Петрович</td><td>A002AA134</td><td>Volkswagen</td><td><a href=#>Изменить</a></td></tr> <!--ряд с ячейками тела таблицы-->
-                        <tr><td>3</td><td>Михайлов Михаил Михайлович</td><td>A003AA134</td><td>Газель</td><td><a href=#>Изменить</a></td></tr> <!--ряд с ячейками тела таблицы-->
-                        <tr><td>4</td><td>Селезнев Алексей Олегович</td><td>A004AA134</td><td>Mercedes-Benz</td><td><a href=#>Изменить</a></td></tr> <!--ряд с ячейками тела таблицы-->
-                        <tr><td>5</td><td>Степанов Сергей Андреевич</td><td>A005AA134</td><td>Mercedes-Benz</td><td><a href=#>Изменить</a></td></tr> <!--ряд с ячейками тела таблицы-->
-                        <tr><td>6</td><td>Кукушкин Петр Владимирович</td><td>A006AA134</td><td>Газель</td><td><a href=#>Изменить</a></td></tr> <!--ряд с ячейками тела таблицы-->
-                    </table>
-                    <a class="btnLogin btn btn-light" id="add_new_driver" asp-area="" asp-controller="Home" asp-action="NewDriver" asp-route-login=@ViewBag.Login>Добавить водителя</a>
-                    <br>
-                </div>
-                <br>
             </div>
         </div>
+        <div id="driver" style=display:none>
+            <div>
+                <span><b>Водители: </b><br></span>
+                <table class="table">
+                    <tr><th>№</th><th>ФИО</th><th>Гос номер автомобиля</th><th>Марка автомобиля</th><th>Действие</th></tr> <!--ряд с ячейками заголовков-->
+                    <tr><td>1</td><td>Иванов Иван Иванович</td><td>A001AA134</td><td>Газель</td><td><a href="EditingDriver">Изменить</a></td></tr> <!--ряд с ячейками тела таблицы-->
+                    <tr><td>2</td><td>Петров Петр Петрович</td><td>A002AA134</td><td>Volkswagen</td><td><a href=#>Изменить</a></td></tr> <!--ряд с ячейками тела таблицы-->
+                    <tr><td>3</td><td>Михайлов Михаил Михайлович</td><td>A003AA134</td><td>Газель</td><td><a href=#>Изменить</a></td></tr> <!--ряд с ячейками тела таблицы-->
+                    <tr><td>4</td><td>Селезнев Алексей Олегович</td><td>A004AA134</td><td>Mercedes-Benz</td><td><a href=#>Изменить</a></td></tr> <!--ряд с ячейками тела таблицы-->
+                    <tr><td>5</td><td>Степанов Сергей Андреевич</td><td>A005AA134</td><td>Mercedes-Benz</td><td><a href=#>Изменить</a></td></tr> <!--ряд с ячейками тела таблицы-->
+                    <tr><td>6</td><td>Кукушкин Петр Владимирович</td><td>A006AA134</td><td>Газель</td><td><a href=#>Изменить</a></td></tr> <!--ряд с ячейками тела таблицы-->
+                </table>
+                <a class="btnLogin btn btn-light" id="add_new_driver" asp-area="" asp-controller="Home" asp-action="NewDriver" asp-route-login=@ViewBag.Login>Добавить водителя</a>
+                <br>
+            </div>
+            <br>
+        </div>
+
     </div>
 </body>
 

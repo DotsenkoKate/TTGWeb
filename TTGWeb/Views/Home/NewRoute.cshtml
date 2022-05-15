@@ -10,31 +10,29 @@
     <div style="margin-left:15rem; margin-right:5rem">
         <br>
         <div style="width:60%">
-            <div>
-                <span>Введите номер маршрута</span>
-                <input class="form-control" style="text-align: left;" />
+            <div style=" font-size: 17pt;">
+                <span>Введите номер маршрута</span> 
+                <input class="form-control" style="text-align: left;" id="newRouteNum" required/>
                 <br>
             </div>
-            <div>
+            <div style=" font-size: 17pt;">
                 <span>Введите стоимость аренды маршрута</span>
-                <input class="form-control" style="text-align: left;" />
+                <input class="form-control" style="text-align: left;" id="newPriceForDriver" required />
                 <br>
             </div>
-            <div>
+            <div style=" font-size: 17pt;">
                 <span>Введите стоимость проезда по маршруту</span>
-                <input class="form-control" style="text-align: left;" />
+                <input class="form-control" style="text-align: left;" id="newPriceForPassangers" required />
                 <br>
             </div>
         </div>
 
-
         <div style="display:flex">
-
             <div>
-                <a class="btnLogin btn btn-light" onclick="javascript:history.back(); return false;" asp-route-login=@ViewBag.Login>Назад</a>
+                <a class="btnLogin btn btn-light" style="font-size: 18pt;" onclick="javascript:history.back(); return false;" asp-route-login=@ViewBag.Login>Назад</a>
             </div>
             <div style="margin-left:10px">
-                <a class="btnLogin btn btn-light" asp-area="" asp-controller="Home" asp-action="Editing" asp-route-login=@ViewBag.Login onclick="allerting(5)">Принять</a>
+                <a class="btnLogin btn btn-light" style="font-size: 18pt;" asp-controller="Home" asp-action="Editing" asp-route-login=@ViewBag.Login onclick="allerting(5)">Принять</a>
 
             </div>
         </div>

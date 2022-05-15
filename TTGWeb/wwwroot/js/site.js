@@ -7,21 +7,69 @@
 
 var myMap;
 
-function show(param_div_id) {
-    document.getElementById('main').innerHTML = document.getElementById(param_div_id).innerHTML;
+function ChoosenParamertForEditing()
+{
+    document.getElementById('main').innerHTML = document.getElementById(document.getElementById('choose_editing').value).innerHTML;
 }
-function check() {
-    let a = document.getElementById('route_choose_edit').value;
-    if (a == 'null') {
-        show('null')
+function GetMyRoutesOnEditing()
+{
+    // 1. Создаём новый объект XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+    var res;
+    // 2. Конфигурируем его: GET-запрос на URL
+    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos', false);
+    // 3. Отсылаем запрос
+    xhr.send();
+    // 4. Если код ответа сервера не 200, то это ошибка
+    if (xhr.status != 200) {
+        // обработать ошибку
+        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
+    } else {
+        // вывести результат
+        res = JSON.parse(xhr.responseText);
     }
-    else if (a == 'driver') {
-        show('driver')
-    }
-    else if (a == 'route') {
-        show('route')
-    }
+    return res;
 }
+function SelectOptionOnEditing()
+{
+    var objSel = document.getElementById("chosenRouteOnEditing");
+    var routesList = GetMyRoutesOnEditing();
+    AddOption(objSel, " ", "null", true);
+    routesList.map(
+        (route) => {
+            AddOption(objSel, route.id, route.id, false);
+        }
+    );
+
+}
+function GetRoutesOnEditing() {
+    let a = document.getElementById('chosenRouteOnEditing').value;
+    document.getElementById('route_choose').innerHTML = document.getElementById("notnull").innerHTML;
+    GetPrices();
+   // TableDriversOnMyRoutes();
+    init(a);
+}
+function GetPrices() {
+    // 1. Создаём новый объект XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+    var res;
+    // 2. Конфигурируем его: GET-запрос на URL
+    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos/1', false);
+    // 3. Отсылаем запрос
+    xhr.send();
+    // 4. Если код ответа сервера не 200, то это ошибка
+    if (xhr.status != 200) {
+        // обработать ошибку
+        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
+    } else {
+        // вывести результат
+        res = JSON.parse(xhr.responseText);
+    }
+    document.getElementById("priceforpassangers").value = res.id;
+    document.getElementById("pricefordriver").value = res.id;
+}
+
+
 function check_route() {
     let a = document.getElementById('choose_route').value;
     if (a == 'null') {
@@ -224,6 +272,43 @@ function addItems(myMap) {
     myMap.geoObjects.add(multiRoute);
 }
 
+//Функция для страницы Мой профиль
+function SaveNewProfileInfo() {
+    var info = {
+        owner_name: $('#name').val(),
+        license: $('#license').val(),
+        login: $('#login').val(),
+        password: $('#password').val(),
+    }
+//Поменять адрес
+    const url = 'https://randomuser.me/api';
+
+    var request = new Request(url, {
+        method: 'POST',
+        body: JSON.stringify(info),
+        headers: { 'content-type': 'application/json' }
+    });
+
+    fetch(request)
+        .then(
+            function (response) {
+                if (response.status !== 200) {
+                    alert('Что-то пошло не так. Код ошибки: ' + response.status);
+
+                    return;
+                }
+                else {
+                    alert("Данные успешно изменены!Авторизуйтесь, чтобы продолжить работу");
+                    //Придумать что-то для переадресации на страницу авторизациии!!!
+                    window.location.href = '/';
+                }
+            });
+
+}
+
+
+
+
 
 function allerting(message) {
     let a = message;
@@ -425,38 +510,8 @@ function PostRequest() {
 
 
 }
-function SaveNewProfileInfo() {
-    var info = {
-        owner_name: $('#name').val(),
-        license: $('#license').val(),
-        login: $('#login').val(),
-        password: $('#password').val(),
-    }
 
-    const url = 'https://randomuser.me/api';
 
-    var request = new Request(url, {
-        method: 'POST',
-        body: JSON.stringify(info),
-        headers: { 'content-type': 'application/json' }
-    });
-
-    fetch(request)
-        .then(
-            function (response) {
-                if (response.status !== 200) {
-                    alert('Что-то пошло не так. Код ошибки: ' + response.status);
-
-                    return;
-                }
-                else {
-                    alert("Данные успешно изменены!Авторизуйтесь, чтобы продолжить работу");
-                    //Придумать что-то для переадресации на страницу авторизациии!!!
-                    window.location.href = '/';
-                }
-            });
-
-}
 /*
 function CreateNewUser()
 {

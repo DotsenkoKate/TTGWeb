@@ -9,6 +9,7 @@
         <label for="routeOnMyRoutes" style="font-size: 24px; margin-right: 24px;">Выберете маршрут</label>
         <select class="btnLogin btn btn-light" name="route" id="routeOnMyRoutes" onchange="GetRoutesOnMyRoutes()"></select>
         <br>
+        <a class="btnLogin btn btn-light" style="margin: 0 15px;"  asp-controller="Home" asp-action="NewRoute" asp-route-login=@ViewBag.Login>Добавить новый маршрут</a>
     </div>
     <br>
     <br>
@@ -19,7 +20,7 @@
         <div id="notnull" style=display:none>
             <div class="div-inline">
                 <div>
-                    <div id="map98" style="width: 600px; height: 400px"></div>
+                    <div id="mapMyRoute" style="width: 600px; height: 400px"></div>
                 </div>
                 <div style="margin-left: 30px">
                     <div>
