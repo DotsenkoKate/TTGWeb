@@ -14,7 +14,6 @@
     <br>
     <div id="main">
     </div>
-
     <div id="hidden_div">
         <div id="null" style=display:none> </div>
         <div id="notnull" style=display:none>
@@ -24,30 +23,30 @@
                 </div>
                 <div style="margin-left: 30px">
                     <div>
-                        <h4 align="center">
+                        <h3 align="center">
                             <span><b>Маршрут №</b></span>
                             <span id="routename"><b></b></span>
-                        </h4>
+                        </h3>
+                        <br>
                     </div>
-                    <div>
-                        <span><b>Количество водителей: </b></span>
-                        <span id="drivercount" ></span>
+                    <div style="font-size:14pt">
+                        <span><b>Стоимость проезда</b></span>
+                        <span id="priceforpassangers"></span>
                     </div>
-                    <div>
-                        <span><b>О водителях: </b><br></span>
-                        <table class="table">
+                    <div style="font-size:14pt">
+                        <span><b>Стоимость аренды</b></span>
+                        <span id="pricefordriver"></span>
+                    </div>
+                    <div style="font-size:14pt">
+                        <span> <b>О водителях: </b></span>
+                        <br>
+                        <table id="tabledriver" class="table">
                             <tr><th>№</th><th>ФИО</th><th>Гос номер автомобиля</th><th>Марка автомобиля</th><th>Состояние</th></tr> <!--ряд с ячейками заголовков-->
-                            <tr><td>1</td><td>Иванов Иван Иванович</td><td>A001AA134</td><td>Газель</td><td>Эксплуатируется</td></tr> <!--ряд с ячейками тела таблицы-->
-                            <tr><td>2</td><td>Петров Петр Петрович</td><td>A002AA134</td><td>Volkswagen</td><td>Эксплуатируется</td></tr> <!--ряд с ячейками тела таблицы-->
-                            <tr><td>3</td><td>Михайлов Михаил Михайлович</td><td>A003AA134</td><td>Газель</td><td>Эксплуатируется</td></tr> <!--ряд с ячейками тела таблицы-->
-
                         </table>
                         <br>
                         <a class="btnLogin btn btn-light" asp-area="" asp-controller="Home" asp-action="Editing" asp-route-login=@ViewBag.Login>Отредактировать</a>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>

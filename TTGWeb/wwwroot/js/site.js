@@ -10,10 +10,6 @@ var myMap;
 function show(param_div_id) {
     document.getElementById('main').innerHTML = document.getElementById(param_div_id).innerHTML;
 }
-function show1(param_div_id) {
-    document.getElementById('route_choose').innerHTML = document.getElementById(param_div_id).innerHTML;
-    init();
-}
 function check() {
     let a = document.getElementById('route_choose_edit').value;
     if (a == 'null') {
@@ -39,14 +35,196 @@ function check_route() {
         show1('10c')
     }
 }
+
+//Функции для страницы Мои маршруты
+function GetMyRoutes() {
+    // 1. Создаём новый объект XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+    var res;
+    // 2. Конфигурируем его: GET-запрос на URL
+    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos', false);
+    // 3. Отсылаем запрос
+    xhr.send();
+    // 4. Если код ответа сервера не 200, то это ошибка
+    if (xhr.status != 200) {
+        // обработать ошибку
+        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
+    } else {
+        // вывести результат
+        res = JSON.parse(xhr.responseText);
+    }
+    return res;
+}
+function AddOption(oListbox, text, value, isDefaultSelected, isSelected) {
+    var oOption = document.createElement("option");
+    oOption.appendChild(document.createTextNode(text));
+    oOption.setAttribute("value", value);
+    if (isDefaultSelected) oOption.defaultSelected = true;
+    else if (isSelected) oOption.selected = true;
+    oListbox.appendChild(oOption);
+}
+function SelectOptionOnMyRoutes() {
+    var objSel = document.getElementById("routeOnMyRoutes");
+    var routesList = GetMyRoutes();
+    AddOption(objSel, " ", "null", true);
+    routesList.map(
+        (route) => {
+            AddOption(objSel, route.id, route.id, false);
+        }
+    );
+}
 function GetRoutesOnMyRoutes() {
     let a = document.getElementById('routeOnMyRoutes').value;
     document.getElementById('main').innerHTML = document.getElementById("notnull").innerHTML;
-    document.getElementById("routename").innerHTML = a;
-    //Туть должен быть запрос к серверу на получение водятлов
-    document.getElementById("drivercount").innerHTML = 2;
+    document.getElementById("routename").innerHTML = '<b>' + a + '</b>';
+    GetPricesOfRoute();
+    TableDriversOnMyRoutes();
     init(a);
 }
+function CreateRowAboutDriver(index, name, autonum, automodel, state) {
+    //Для начала, вам нужно найти элемент, в который нужно вставить вашу разметку. 
+    var table = document.getElementById('tabledriver');
+    //Теперь создаем строку и присваиваем ее переменной.
+    var tr = document.createElement("tr");
+    //добавляем разметку в созданную строку
+    tr.innerHTML = '<td>' + (index + 1) + '</td> <td>' + name + '</td> <td>' + autonum + '</td> <td>' + automodel + ' </td><td>' + state + '</td>';
+    //вставляем строку в таблицу
+    table.appendChild(tr);
+}
+function GetInfoAboutDrivers() {
+    // 1. Создаём новый объект XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+    var res;
+    // 2. Конфигурируем его: GET-запрос на URL
+    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos', false);
+    // 3. Отсылаем запрос
+    xhr.send();
+    // 4. Если код ответа сервера не 200, то это ошибка
+    if (xhr.status != 200) {
+        // обработать ошибку
+        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
+    } else {
+        // вывести результат
+        res = JSON.parse(xhr.responseText);
+    }
+    return res;
+}
+function TableDriversOnMyRoutes() {
+    var driverList = GetInfoAboutDrivers();
+    driverList.map(
+        (driver, index) => {
+            //Надо поменять id на необходимые поля из запроса
+            CreateRowAboutDriver(index, driver.id, driver.id, driver.id, driver.id);
+        }
+    );
+}
+function GetPricesOfRoute() {
+    // 1. Создаём новый объект XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+    var res;
+    // 2. Конфигурируем его: GET-запрос на URL
+    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos/1', false);
+    // 3. Отсылаем запрос
+    xhr.send();
+    // 4. Если код ответа сервера не 200, то это ошибка
+    if (xhr.status != 200) {
+        // обработать ошибку
+        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
+    } else {
+        // вывести результат
+        res = JSON.parse(xhr.responseText);
+    }
+    document.getElementById("priceforpassangers").innerHTML = res.id;
+    document.getElementById("pricefordriver").innerHTML = res.id;
+}
+function init(a) {
+    // Создание карты.
+    myMap = new ymaps.Map("mapMyRoute", {
+        center: [48.717987, 44.481111],
+        zoom: 12,
+        controls: ['fullscreenControl', 'zoomControl']
+    });
+    addItems(myMap);
+    setInterval(autoupdate, 15000);
+    function autoupdate() {
+        myMap.destroy();
+        myMap = null;
+        init();
+    }
+
+}
+function addItems(myMap) {
+    myMap.geoObjects
+        .add(new ymaps.Placemark([48.724803, 44.468239], {
+            balloonContent: 'ул. Добрая'
+        }, {
+            preset: "islands#circleIcon",
+            iconColor: '#0095b6'
+        }))
+        .add(new ymaps.Placemark([48.721234, 44.473542], {
+            balloonContent: 'ул. Красивая'
+        }, {
+            preset: "islands#circleIcon",
+            iconColor: '#0095b6'
+        }))
+        .add(new ymaps.Placemark([48.717174, 44.483618], {
+            balloonContent: 'ул. Умная'
+        }, {
+            preset: "islands#circleIcon",
+            iconColor: '#0095b6'
+        }))
+        .add(new ymaps.Placemark([48.713997, 44.496888], {
+            balloonContent: 'ул. Ленина'
+        }, {
+            preset: "islands#circleIcon",
+            iconColor: '#0095b6'
+        }))
+        .add(new ymaps.Placemark([48.714849, 44.493857], {
+            balloonContent: 'Петров Петр Петрович'
+        }, {
+            iconLayout: 'default#imageWithContent',
+            // Своё изображение иконки метки.
+            iconImageHref: '/images/busPoint.png',
+            // Размеры метки.
+            iconImageSize: [32, 32],
+            iconImageOffset: [-24, -24],
+            // Смещение слоя с содержимым относительно слоя с картинкой.
+            iconContentOffset: [15, 15]
+        }))
+
+    /*
+        var myPolyline = new ymaps.Polyline([
+            // Указываем координаты вершин.
+            [48.724803, 44.468239],
+            [48.721234, 44.473542],
+            [48.717174, 44.483618],
+            [48.713997, 44.496888]
+        ], {}, {
+            // Ширину линии.
+            strokeWidth: 4,
+            // Добавляем в контекстное меню новый пункт, позволяющий удалить ломаную.
+    
+        });
+    
+        // Добавляем линию на карту.
+        myMap.geoObjects.add(myPolyline);*/
+
+    var multiRoute = new ymaps.multiRouter.MultiRoute({
+        referencePoints: [[48.724803, 44.468239],
+        [48.721234, 44.473542],
+        [48.717174, 44.483618],
+        [48.713997, 44.496888]]
+    }, {
+
+        wayPointVisible: false,
+        routeStrokeWidth: 5,
+        boundsAutoApply: true,
+        zoomMargin: 30
+    });
+    myMap.geoObjects.add(multiRoute);
+}
+
+
 function allerting(message) {
     let a = message;
     if (a == '1') {
@@ -92,103 +270,10 @@ $(function () {
     });
 });
 
-function init(a) {
-  // Создание карты.
-     myMap = new ymaps.Map("map98", {
-        center: [48.717987, 44.481111],
-        zoom: 12,
-        controls: ['fullscreenControl', 'zoomControl']
-    });
-    addItems(myMap);
-
-
-setInterval(autoupdate, 15000);
-    
-function autoupdate()
-    {
-        
-        myMap.destroy();
-        myMap = null;
-        init();
-    }
-
-   
-}
-function addItems(myMap) {
-    myMap.geoObjects
-        .add(new ymaps.Placemark([48.724803, 44.468239], {
-            balloonContent: 'ул. Добрая'
-        }, {
-            preset: "islands#circleIcon",
-            iconColor: '#0095b6'
-        }))
-        .add(new ymaps.Placemark([48.721234, 44.473542], {
-            balloonContent: 'ул. Красивая'
-        }, {
-            preset: "islands#circleIcon",
-            iconColor: '#0095b6'
-        }))
-        .add(new ymaps.Placemark([48.717174, 44.483618], {
-            balloonContent: 'ул. Умная'
-        }, {
-            preset: "islands#circleIcon",
-            iconColor: '#0095b6'
-        }))
-        .add(new ymaps.Placemark([48.713997, 44.496888], {
-            balloonContent: 'ул. Ленина'
-        }, {
-            preset: "islands#circleIcon",
-            iconColor: '#0095b6'
-        }))
-        .add(new ymaps.Placemark([48.714849, 44.493857], {
-            balloonContent: 'Петров Петр Петрович'
-        }, {
-            iconLayout: 'default#imageWithContent',
-            // Своё изображение иконки метки.
-            iconImageHref: '/images/busPoint.png',
-            // Размеры метки.
-            iconImageSize: [32, 32],
-            iconImageOffset: [-24, -24],
-            // Смещение слоя с содержимым относительно слоя с картинкой.
-            iconContentOffset: [15, 15]
-        }))
-
-/*
-    var myPolyline = new ymaps.Polyline([
-        // Указываем координаты вершин.
-        [48.724803, 44.468239],
-        [48.721234, 44.473542],
-        [48.717174, 44.483618],
-        [48.713997, 44.496888]
-    ], {}, {
-        // Ширину линии.
-        strokeWidth: 4,
-        // Добавляем в контекстное меню новый пункт, позволяющий удалить ломаную.
-
-    });
-
-    // Добавляем линию на карту.
-    myMap.geoObjects.add(myPolyline);*/
-
-    var multiRoute = new ymaps.multiRouter.MultiRoute({
-        referencePoints: [[48.724803, 44.468239],
-        [48.721234, 44.473542],
-        [48.717174, 44.483618],
-        [48.713997, 44.496888]]
-    }, {
-
-
-        wayPointVisible: false,
-        routeStrokeWidth: 5,
-        boundsAutoApply: true,
-        zoomMargin: 30
-    });
-    myMap.geoObjects.add(multiRoute);
-}
 
 function init1() {
-    
-   var  myMap = new ymaps.Map("map", {
+
+    var myMap = new ymaps.Map("map", {
         center: [48.717987, 44.481111],
         zoom: 11
     }, {
@@ -240,7 +325,7 @@ function init1() {
     });
 
 
-        /* Начальный адрес метки */
+    /* Начальный адрес метки */
 
     var address = 'Россия, Волгоград, Ленина, д. 28';
 
@@ -286,11 +371,10 @@ function ShowMapEditigRoute() {
         init1();
 
     }
-    
+
 }
 
-function GetRequest()
-{
+function GetRequest() {
     // 1. Создаём новый объект XMLHttpRequest
     var xhr = new XMLHttpRequest();
 
@@ -308,16 +392,14 @@ function GetRequest()
         // вывести результат
 
         var tomUser = JSON.parse(xhr.responseText);
-       //document.write(tomUser.title); // Tom
+        //document.write(tomUser.title); // Tom
         alert(tomUser.title);
         //alert(xhr.responseText); // responseText -- текст ответа.
 
     }
 
 }
-
-function PostRequest()
-{
+function PostRequest() {
     // 1. Создаём новый объект XMLHttpRequest
     var xhr = new XMLHttpRequest();
 
@@ -356,7 +438,7 @@ function SaveNewProfileInfo() {
     var request = new Request(url, {
         method: 'POST',
         body: JSON.stringify(info),
-        headers: {'content-type': 'application/json' }
+        headers: { 'content-type': 'application/json' }
     });
 
     fetch(request)
@@ -364,7 +446,7 @@ function SaveNewProfileInfo() {
             function (response) {
                 if (response.status !== 200) {
                     alert('Что-то пошло не так. Код ошибки: ' + response.status);
-                    
+
                     return;
                 }
                 else {
@@ -410,51 +492,3 @@ function CreateNewUser()
 }
 */
 
-function GetMyRoutes() {
-    // 1. Создаём новый объект XMLHttpRequest
-    var xhr = new XMLHttpRequest();
-    var res;
-
-    // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos', false);
-
-    // 3. Отсылаем запрос
-    xhr.send();
-
-    // 4. Если код ответа сервера не 200, то это ошибка
-    if (xhr.status != 200) {
-        // обработать ошибку
-        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
-    } else {
-        // вывести результат
-
-        res = JSON.parse(xhr.responseText);
-
-    }
-
-    return res;
-}
-function AddOption(oListbox, text, value, isDefaultSelected, isSelected) {
-    var oOption = document.createElement("option");
-    oOption.appendChild(document.createTextNode(text));
-    oOption.setAttribute("value", value);
-
-    if (isDefaultSelected) oOption.defaultSelected = true;
-    else if (isSelected) oOption.selected = true;
-
-    oListbox.appendChild(oOption);
-}
-function SelectOptionOnMyRoutes() {
-    var objSel = document.getElementById("routeOnMyRoutes");
-    var routesList = GetMyRoutes();
-
-    AddOption(objSel, " ", "null", true);
-
-    routesList.map(
-        (route) =>
-        {
-            AddOption(objSel, route.id, route.id, false);
-        }
-    );
-
-}
