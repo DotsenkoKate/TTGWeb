@@ -9,7 +9,7 @@
     <br>
     <div>
         <label style="font-size: 24px; margin-right: 24px;">Выберете категорию</label>
-        <select class="btnLogin btn btn-light" id="choose_editing" onchange="ChoosenParamertForEditing()">
+        <select class="btnLogin btn btn-light" id="choose_editing" onchange="ChoosenParamertForEditing(), TableDriversOnEditing(window.location.search)">
             <option value="null"> </option>
             <option value="route">Маршрут</option>
             <option value="driver">Водители</option>
@@ -34,17 +34,11 @@
                     <div style="display: flex; justify-content: space-between">
                         <div style="margin-left: 10px;">
                             <label style="font-size: 20px;">Список остановок</label>
-                            <ul>
-                                <li>ул. Добрая</li>
-                                <li>ул. Красивая</li>
-                                <li>ул. Умная</li>
-                                <li>ул. Ленина</li>
-                            </ul>
+                            <ul id="listOfStations"> </ul>
                             <a class="btnLogin btn btn-light" id="way" asp-area="" asp-controller="Home" asp-action="EditingRoute" asp-route-login=@ViewBag.Login>Изменить</a>
                         </div>
                         <div>
                             <div id="mapMyRoute" style="width: 600px; height: 400px"></div>
-
                         </div>
                         <div style="margin-left: 50px;">
                             <div>
@@ -73,16 +67,10 @@
         </div>
         <div id="driver" style=display:none>
             <div>
-                <span><b>Водители: </b><br></span>
-                <table class="table">
-                    <tr><th>№</th><th>ФИО</th><th>Гос номер автомобиля</th><th>Марка автомобиля</th><th>Действие</th></tr> <!--ряд с ячейками заголовков-->
-                    <tr><td>1</td><td>Иванов Иван Иванович</td><td>A001AA134</td><td>Газель</td><td><a href="EditingDriver">Изменить</a></td></tr> <!--ряд с ячейками тела таблицы-->
-                    <tr><td>2</td><td>Петров Петр Петрович</td><td>A002AA134</td><td>Volkswagen</td><td><a href=#>Изменить</a></td></tr> <!--ряд с ячейками тела таблицы-->
-                    <tr><td>3</td><td>Михайлов Михаил Михайлович</td><td>A003AA134</td><td>Газель</td><td><a href=#>Изменить</a></td></tr> <!--ряд с ячейками тела таблицы-->
-                    <tr><td>4</td><td>Селезнев Алексей Олегович</td><td>A004AA134</td><td>Mercedes-Benz</td><td><a href=#>Изменить</a></td></tr> <!--ряд с ячейками тела таблицы-->
-                    <tr><td>5</td><td>Степанов Сергей Андреевич</td><td>A005AA134</td><td>Mercedes-Benz</td><td><a href=#>Изменить</a></td></tr> <!--ряд с ячейками тела таблицы-->
-                    <tr><td>6</td><td>Кукушкин Петр Владимирович</td><td>A006AA134</td><td>Газель</td><td><a href=#>Изменить</a></td></tr> <!--ряд с ячейками тела таблицы-->
-                </table>
+                 <span><b>Водители: </b><br></span>
+                <table id="tabledriverediting" class="table">
+                            <tr><th>№</th><th>ФИО</th><th>Гос номер автомобиля</th><th>Марка автомобиля</th><th>Состояние</th><th>Действие</th></tr> <!--ряд с ячейками заголовков-->
+                 </table>
                 <a class="btnLogin btn btn-light" id="add_new_driver" asp-area="" asp-controller="Home" asp-action="NewDriver" asp-route-login=@ViewBag.Login>Добавить водителя</a>
                 <br>
             </div>

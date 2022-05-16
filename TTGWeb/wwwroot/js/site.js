@@ -7,12 +7,44 @@
 
 var myMap;
 
-function ChoosenParamertForEditing()
-{
+//Функция для Регистрации
+function CreateNewUser() {
+    var data = {
+        owner_name: $('#ownerName').val(),
+        license: $('#license').val(),
+        login: $('#login').val(),
+        password: $('#password').val(),
+    }
+
+    const url = 'https://randomuser.me/api';
+
+    var request = new Request(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'content-type': 'application/json' }
+    });
+
+    fetch(request)
+        .then(
+            function (response) {
+                if (response.status !== 200) {
+                    alert('Что-то пошло не так. Код ошибки: ' + response.status);
+                    return;
+                }
+                else {
+                    alert("Успешно!");
+                    //Придумать что-то для переадресации на страницу авторизациии!!!
+                    window.location.pathname = 'Home/Login'
+                    return;
+                }
+            });
+}
+
+//Функции для страницы Редактирование
+function ChoosenParamertForEditing() {
     document.getElementById('main').innerHTML = document.getElementById(document.getElementById('choose_editing').value).innerHTML;
 }
-function GetMyRoutesOnEditing()
-{
+function GetMyRoutesOnEditing() {
     // 1. Создаём новый объект XMLHttpRequest
     var xhr = new XMLHttpRequest();
     var res;
@@ -30,8 +62,7 @@ function GetMyRoutesOnEditing()
     }
     return res;
 }
-function SelectOptionOnEditing()
-{
+function SelectOptionOnEditing() {
     var objSel = document.getElementById("chosenRouteOnEditing");
     var routesList = GetMyRoutesOnEditing();
     AddOption(objSel, " ", "null", true);
@@ -46,7 +77,8 @@ function GetRoutesOnEditing() {
     let a = document.getElementById('chosenRouteOnEditing').value;
     document.getElementById('route_choose').innerHTML = document.getElementById("notnull").innerHTML;
     GetPrices();
-   // TableDriversOnMyRoutes();
+    GetStations();
+    // TableDriversOnMyRoutes();
     init(a);
 }
 function GetPrices() {
@@ -68,6 +100,129 @@ function GetPrices() {
     document.getElementById("priceforpassangers").value = res.id;
     document.getElementById("pricefordriver").value = res.id;
 }
+function GetStations() {
+    // 1. Создаём новый объект XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+    var res;
+    // 2. Конфигурируем его: GET-запрос на URL
+    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos', false);
+    // 3. Отсылаем запрос
+    xhr.send();
+    // 4. Если код ответа сервера не 200, то это ошибка
+    if (xhr.status != 200) {
+        // обработать ошибку
+        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
+    } else {
+        // вывести результат
+        res = JSON.parse(xhr.responseText);
+    }
+
+    res.map(
+        (station) => {
+            var li = document.createElement('li');
+            ///Поменять id на нужную переменную
+            li.innerHTML = station.id;
+            document.getElementById("listOfStations").appendChild(li);
+
+        }
+    );
+
+
+}
+function CreateRowDriver(index, name, autonum, automodel, state, a) {
+    //Для начала, вам нужно найти элемент, в который нужно вставить вашу разметку. 
+    var table = document.getElementById('tabledriverediting');
+    //Теперь создаем строку и присваиваем ее переменной.
+    var tr = document.createElement("tr");
+    //добавляем разметку в созданную строку
+    tr.innerHTML = '<td>' + (index + 1) + '</td> <td>' + name + '</td> <td>' + autonum + '</td> <td>' + automodel + ' </td><td>' + state + '</td><td><a href="/Home/EditingDriver' + a + '"  id="edit_driver"> Отредактировать водителя</a></td>';
+    //вставляем строку в таблицу
+    table.appendChild(tr);
+}
+function TableDriversOnEditing(a) {
+    var driverList = GetInfoAboutDrivers();
+    $('#tabledriverediting').find('td').remove();
+    driverList.map(
+        (driver, index) => {
+            //Надо поменять id на необходимые поля из запроса
+            CreateRowDriver(index, driver.id, driver.id, driver.id, driver.id, a);
+        }
+    );
+}
+
+
+//Функции для Водителя
+function SaveDriver() {
+    var data = {
+        driverName: $('#newDriverName').val(),
+        passportSerial: $('#passportSerial').val(),
+        passportNum: $('#passportNum').val(),
+        route: $('#route').val(),
+        newAutoMarka: $('#newAutoMarka').val(),
+        newAutoNum: $('#newAutoNum').val(),
+        login: $('#newDriverLogin').val(),
+        password: $('#newDriverPassword').val()
+    }
+    const url = 'https://randomuser.me/api';
+
+    var request = new Request(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'content-type': 'application/json' }
+    });
+
+    fetch(request)
+        .then(
+            function (response) {
+                if (response.status !== 200) {
+                    alert('Что-то пошло не так. Код ошибки: ' + response.status);
+                    return;
+                }
+                else {
+                    alert("Успешно!");
+                    //Придумать что-то для переадресации на страницу авторизациии!!!
+                    window.location.pathname = 'Home/Editing'
+                    return;
+                }
+            });
+}
+function GetRoutesOnNewDriver() {
+    // 1. Создаём новый объект XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+    var res;
+    // 2. Конфигурируем его: GET-запрос на URL
+    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos', false);
+    // 3. Отсылаем запрос
+    xhr.send();
+    // 4. Если код ответа сервера не 200, то это ошибка
+    if (xhr.status != 200) {
+        // обработать ошибку
+        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
+    } else {
+        // вывести результат
+        res = JSON.parse(xhr.responseText);
+    }
+    return res;
+}
+function SelectOptionOnNewDriver() {
+    var objSel = document.getElementById("route");
+    var routesList = GetRoutesOnNewDriver();
+    AddOption(objSel, " ", "null", true);
+    routesList.map(
+        (route) => {
+            AddOption(objSel, route.id, route.id, false);
+        }
+    );
+}
+//Переделать удаление
+function DeleteDriver(item, url) {
+    return fetch(url + '/' + item, {
+        method: 'DELETE'
+    })
+        .then(response => response.json());
+
+}
+
 
 
 function check_route() {
@@ -83,7 +238,7 @@ function check_route() {
         show1('10c')
     }
 }
-
+ 
 //Функции для страницы Мои маршруты
 function GetMyRoutes() {
     // 1. Создаём новый объект XMLHttpRequest
@@ -280,7 +435,7 @@ function SaveNewProfileInfo() {
         login: $('#login').val(),
         password: $('#password').val(),
     }
-//Поменять адрес
+    //Поменять адрес
     const url = 'https://randomuser.me/api';
 
     var request = new Request(url, {
@@ -305,9 +460,6 @@ function SaveNewProfileInfo() {
             });
 
 }
-
-
-
 
 
 function allerting(message) {
@@ -512,38 +664,43 @@ function PostRequest() {
 }
 
 
-/*
-function CreateNewUser()
-{
-    var data = {
-        owner_name: $('#name').val(),
-        license: $('#license').val(),
-        login: $('#login').val(),
-        password: $('#password').val(),
-    }
-
-    const url = 'https://randomuser.me/api';
-
-    var request = new Request(url, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: { 'content-type': 'application/json' }
-    });
-
-    fetch(request)
-        .then(
-            function (response) {
-                if (response.status !== 200) {
-                    alert('Что-то пошло не так. Код ошибки: ' + response.status);
-
-                    return;
-                }
-                else {
-                    alert("Вы успешно зарегистрированы!");
-                    //Придумать что-то для переадресации на страницу авторизациии!!!
-                    window.location.href = '/';
-                }
-            });
+function CreateRowStation(index, nameStation, location, description, a) {
+    //Для начала, вам нужно найти элемент, в который нужно вставить вашу разметку. 
+    var table = document.getElementById('dynamic');
+    //Теперь создаем строку и присваиваем ее переменной.
+    var tr = document.createElement("tr");
+    //добавляем разметку в созданную строку
+    tr.innerHTML = '<td> <input type="text" id="num" value=' + (index + 1) + '></td> <td><input type="text" id="nameStation" value=' + nameStation + '></td> <td> <input type="text" id="location" value=' + location + '></td> <td><input type="text" id="description" value=' + description + '></td><td><button class="add btnLogin btn btn-light" type="button" onclick="addXY(this)">Добавить</button><button class="del btnLogin btn btn-light" type = "button" onclick="delXY(this)"> Удалить</button></td>';
+    //вставляем строку в таблицу
+    table.appendChild(tr);
 }
-*/
+function TableStationOnEditingRoute(a) {
+    alert("s");
+    var stationList = GetInfoAboutStations();
+    $('#dynamic').find('td').remove();
+    stationList.map(
+        (station, index) => {
+            //Надо поменять id на необходимые поля из запроса
+            CreateRowStation(index, station.id, station.id, station.id, a);
+        }
+    );
+}
+function GetInfoAboutStations() {
+    // 1. Создаём новый объект XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+    var res;
+    // 2. Конфигурируем его: GET-запрос на URL
+    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos', false);
+    // 3. Отсылаем запрос
+    xhr.send();
+    // 4. Если код ответа сервера не 200, то это ошибка
+    if (xhr.status != 200) {
+        // обработать ошибку
+        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
+    } else {
+        // вывести результат
+        res = JSON.parse(xhr.responseText);
+    }
+    return res;
+}
 
