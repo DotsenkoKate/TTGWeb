@@ -245,7 +245,7 @@ function GetMyRoutes() {
     var xhr = new XMLHttpRequest();
     var res;
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos', false);
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/test.json?token=GHSAT0AAAAAABTRH4JJRXQP4BJJBBJRVKMKYUDZIBQ', false);
     // 3. Отсылаем запрос
     xhr.send();
     // 4. Если код ответа сервера не 200, то это ошибка
@@ -299,7 +299,7 @@ function GetInfoAboutDrivers() {
     var xhr = new XMLHttpRequest();
     var res;
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos', false);
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/test.json?token=GHSAT0AAAAAABTRH4JJRXQP4BJJBBJRVKMKYUDZIBQ', false);
     // 3. Отсылаем запрос
     xhr.send();
     // 4. Если код ответа сервера не 200, то это ошибка
@@ -703,3 +703,33 @@ function GetInfoAboutStations() {
     return res;
 }
 
+function Show() {
+    // 1. Создаём новый объект XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+    var res;
+    // 2. Конфигурируем его: GET-запрос на URL
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/test.json?token=GHSAT0AAAAAABTRH4JIBCMYAZDTRAUS2RLUYUD67CQ', false);
+    // 3. Отсылаем запрос
+    xhr.send();
+    // 4. Если код ответа сервера не 200, то это ошибка
+    if (xhr.status != 200) {
+        // обработать ошибку
+        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
+    } else {
+        // вывести результат
+        res = JSON.parse(xhr.responseText);
+        console.log(res.owner_name);
+
+    }
+    res.map(
+        (user) => {
+            //Надо поменять id на необходимые поля из запроса
+            document.getElementById("name").value = user.owner_name;
+            document.getElementById("license").value = user.license;
+            document.getElementById("login").value = user.login;
+            document.getElementById("password").value = user.password;
+        }
+    );
+
+
+}

@@ -71,10 +71,10 @@ namespace TTGWeb.Controllers
         public IActionResult ShowProfile(string login)
         {
 
-            ProfileModel model = new ProfileModel();
-            /*string result = "";
+           /*ProfileModel model = new ProfileModel();
+            string result = "";
     
-            WebRequest request = WebRequest.Create("https://jsonplaceholder.typicode.com/todos/1");
+            WebRequest request = WebRequest.Create("https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/test.json?token=GHSAT0AAAAAABTRH4JIH6IK72JH65DU327EYUDZ34Q");
             WebResponse response = request.GetResponse();
             using (Stream stream = response.GetResponseStream())
             {
@@ -89,11 +89,8 @@ namespace TTGWeb.Controllers
             }
             response.Close();
 
-            Test? test = JsonSerializer.Deserialize<Test>(result);
-            Console.WriteLine(test.userId.ToString());
-            Console.WriteLine(test.id.ToString());
-            Console.WriteLine(test.title);
-            */
+            ProfileModel? model = JsonSerializer.Deserialize<ProfileModel>(result);
+            
 
             model.Name = "Петр";
             model.Login = login;
@@ -103,7 +100,7 @@ namespace TTGWeb.Controllers
             ViewData["Name"] = model.Name;
             ViewData["License"] = model.License;
             ViewData["Login"] = model.Login;
-            ViewData["Password"] = model.Password;
+            ViewData["Password"] = model.Password;*/
 
             return View("Profile");
         }
