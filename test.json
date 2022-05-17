@@ -1,20 +1,14 @@
 [
   {
-    "userId": 1,
-    "id": 1,
-    "title": "delectus aut autem",
-    "completed": false
+    "owner_name": "Петров Алексей Марьянович",
+    "license": "АСС-6700002 от 15 марта 2011г.",
+    "login": "a",
+    "password": "123"
   },
-  {
-    "userId": 1,
-    "id": 2,
-    "title": "quis ut nam facilis et officia qui",
-    "completed": false
-  },
-  {
-    "userId": 1,
-    "id": 3,
-    "title": "fugiat veniam minus",
-    "completed": false
+{
+    "owner_name": "Сергеев Роман Дмитриевич",
+    "license": "АСС-6700007 от 20 декабря 2010г.",
+    "login": "srd@mail.ru",
+    "password": "123456"
   }
 ]
