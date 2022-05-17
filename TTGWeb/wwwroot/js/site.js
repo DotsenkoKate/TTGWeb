@@ -670,12 +670,11 @@ function CreateRowStation(index, nameStation, location, description, a) {
     //Теперь создаем строку и присваиваем ее переменной.
     var tr = document.createElement("tr");
     //добавляем разметку в созданную строку
-    tr.innerHTML = '<td> <input type="text" id="num" value=' + (index + 1) + '></td> <td><input type="text" id="nameStation" value=' + nameStation + '></td> <td> <input type="text" id="location" value=' + location + '></td> <td><input type="text" id="description" value=' + description + '></td><td><button class="add btnLogin btn btn-light" type="button" onclick="addXY(this)">Добавить</button><button class="del btnLogin btn btn-light" type = "button" onclick="delXY(this)"> Удалить</button></td>';
+    tr.innerHTML = '<td> <input type="text" size="1" id="num" value=' + (index + 1) + '></td> <td><input type="text" size="16" id="nameStation" value=' + nameStation + '></td> <td> <input type="text" size="20" id="location" value=' + location + '></td><td><textarea rows="3" cols="10" id="description">' + description + '</textarea></td><td><button class="add btnLogin btn btn-light" type="button" onclick="addXY(this)">Добавить</button><button class="del btnLogin btn btn-light" type = "button" onclick="delXY(this)">Удалить</button></td>';
     //вставляем строку в таблицу
     table.appendChild(tr);
 }
 function TableStationOnEditingRoute(a) {
-    alert("s");
     var stationList = GetInfoAboutStations();
     $('#dynamic').find('td').remove();
     stationList.map(
