@@ -2,41 +2,81 @@
     ViewData["Title"] = "Создание нового маршрута";
     Layout = "_LayoutMain";
 }
+
 <body>
 
     <h1 align="center">Добавление нового маршрута</h1>
     <br>
 
     <div style="margin-left:15rem; margin-right:5rem">
-        <br>
-        <div style="width:60%">
-            <div style=" font-size: 17pt;">
-                <span>Введите номер маршрута</span> 
-                <input class="form-control" style="text-align: left;" id="newRouteNum" required/>
-                <br>
+        <form id="new_route">
+            <br>
+            <div style="width:60%">
+                <div style=" font-size: 17pt;">
+                    <span>Введите номер маршрута</span>
+                    <input class="form-control" style="text-align: left;" id="newRouteNum" required />
+                    <br>
+                </div>
+                <div style=" font-size: 17pt;">
+                    <span>Введите стоимость аренды маршрута</span>
+                    <input class="form-control" style="text-align: left;" id="newPriceForDriver" required />
+                    <br>
+                </div>
+                <div style=" font-size: 17pt;">
+                    <span>Введите стоимость проезда по маршруту</span>
+                    <input class="form-control" style="text-align: left;" id="newPriceForPassangers" required />
+                    <br>
+                </div>
             </div>
-            <div style=" font-size: 17pt;">
-                <span>Введите стоимость аренды маршрута</span>
-                <input class="form-control" style="text-align: left;" id="newPriceForDriver" required />
-                <br>
-            </div>
-            <div style=" font-size: 17pt;">
-                <span>Введите стоимость проезда по маршруту</span>
-                <input class="form-control" style="text-align: left;" id="newPriceForPassangers" required />
-                <br>
-            </div>
-        </div>
 
-        <div style="display:flex">
-            <div>
-                <a class="btnLogin btn btn-light" style="font-size: 18pt;" onclick="javascript:history.back(); return false;" asp-route-login=@ViewBag.Login>Назад</a>
-            </div>
-            <div style="margin-left:10px">
-                <a class="btnLogin btn btn-light" style="font-size: 18pt;" asp-controller="Home" asp-action="Editing" asp-route-login=@ViewBag.Login onclick="allerting(5)">Принять</a>
-
-            </div>
-        </div>
+            <div style="display:flex">
+                <div>
+                    <a class="btnLogin btn btn-light" style="font-size: 18pt;"
+                        onclick="javascript:history.back(); return false;">Назад</a>
+                </div>
+                <div style="margin-left:10px">
+                    <input type="submit" class="btnLogin btn btn-light" style="font-size: 18pt;" value="Создать">
+                    </input>
+                </div>
+        </form>
     </div>
+    </div>
+    <script>
+        document.getElementById("new_route").addEventListener("submit", function (e) {
+            e.preventDefault();
+            CreateNewUser();
+        });
+        function CreateNewUser() {
+            var data = {
+                num: $('#newRouteNum').val(),
+                price: $('#newPriceForDriver').val(),
+                rent: $('#newPriceForPassangers').val(),
+            }
+
+            const url = 'https://jsonplaceholder.typicode.com/todos/1';
+
+            var request = new Request(url, {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: { 'content-type': 'application/json' }
+            });
+
+            fetch(request)
+                .then(
+                    function (response) {
+                        if (response.status !== 200) {
+                            alert('Что-то пошло не так. Код ошибки: ' + response.status);
+                            return;
+                        }
+                        else {
+                            alert("Успешно!");
+                            window.location.pathname = 'Home/MyRoutes'
+                            return;
+                        }
+                    });
+        }
+    </script>
+
 </body>
 
 

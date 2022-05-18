@@ -2,14 +2,17 @@
     ViewData["Title"] = "Редактирование";
     Layout = "_LayoutMain";
 }
+
 <body onload="SelectOptionOnEditing()">
-    <script src="https://api-maps.yandex.ru/2.1/?apikey=35171b98-e159-494e-9a49-fb4f12e60d78&lang=ru_RU" type="text/javascript"> </script>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=35171b98-e159-494e-9a49-fb4f12e60d78&lang=ru_RU"
+        type="text/javascript"> </script>
     <script src="placemark.js" type="text/javascript"></script>
     <h1 align="center">Параметры редактирования</h1>
     <br>
     <div>
         <label style="font-size: 24px; margin-right: 24px;">Выберете категорию</label>
-        <select class="btnLogin btn btn-light" id="choose_editing" onchange="ChoosenParamertForEditing(), TableDriversOnEditing(window.location.search)">
+        <select class="btnLogin btn btn-light" id="choose_editing"
+            onchange="ChoosenParamertForEditing(), TableDriversOnEditing(window.location.search)">
             <option value="null"> </option>
             <option value="route">Маршрут</option>
             <option value="driver">Водители</option>
@@ -23,19 +26,20 @@
         <div id="route" style=display:none>
             <div>
                 <label style="font-size: 24px; margin-right: 24px;">Выберете номер маршрута</label>
-                <select class="btnLogin btn btn-light" id="chosenRouteOnEditing" onchange="GetRoutesOnEditing()"></select>
+                <select class="btnLogin btn btn-light" id="chosenRouteOnEditing"
+                    onchange="GetRoutesOnEditing()"></select>
             </div>
 
             <div id="route_choose"></div>
             <div id="hidden_div1">
                 <div id="null" style=display:none></div>
                 <div id="notnull" style=display:none>
-                    <a class="btnLogin btn btn-light" onclick="allerting(3)">Удалить маршрут</a>
+                    <a class="btnLogin btn btn-light" onclick="DeleteRoute()">Удалить маршрут</a>
                     <div style="display: flex; justify-content: space-between">
                         <div style="margin-left: 10px;">
                             <label style="font-size: 20px;">Список остановок</label>
                             <ul id="listOfStations"> </ul>
-                            <a class="btnLogin btn btn-light" id="way" asp-area="" asp-controller="Home" asp-action="EditingRoute" asp-route-login=@ViewBag.Login>Изменить</a>
+                            <a class="btnLogin btn btn-light" id="way" onclick="EditRoute()">Изменить</a>
                         </div>
                         <div>
                             <div id="mapMyRoute" style="width: 600px; height: 400px"></div>
@@ -45,15 +49,16 @@
                                 <span>Арендная плата</span>
                                 <input class="form-control" id="pricefordriver" style="text-align: left;" value="0" />
                                 <br>
-                                <a class="btnLogin btn btn-light" id="rent" onclick="allerting(1)">Изменить</a>
+                                <a class="btnLogin btn btn-light" id="rent" onclick="EditRent()">Изменить</a>
                                 <br>
                             </div>
                             <br>
                             <div>
                                 <span>Стоимость проезда</span>
-                                <input class="form-control" id="priceforpassangers" style="text-align: left;" value="0" />
+                                <input class="form-control" id="priceforpassangers" style="text-align: left;"
+                                    value="0" />
                                 <br>
-                                <a class="btnLogin btn btn-light" id="price" onclick="allerting(2)">Изменить</a>
+                                <a class="btnLogin btn btn-light" id="price" onclick="EditPrice()">Изменить</a>
                                 <br>
                             </div>
 
@@ -67,19 +72,35 @@
         </div>
         <div id="driver" style=display:none>
             <div>
-                 <span><b>Водители: </b><br></span>
+                <span><b>Водители: </b><br></span>
                 <table id="tabledriverediting" class="table">
-                            <tr><th>№</th><th>ФИО</th><th>Гос номер автомобиля</th><th>Марка автомобиля</th><th>Состояние</th><th>Действие</th></tr> <!--ряд с ячейками заголовков-->
-                 </table>
-                <a class="btnLogin btn btn-light" id="add_new_driver" asp-area="" asp-controller="Home" asp-action="NewDriver" asp-route-login=@ViewBag.Login>Добавить водителя</a>
+                    <tr>
+                        <th>№</th>
+                        <th>ФИО</th>
+                        <th>Гос номер автомобиля</th>
+                        <th>Марка автомобиля</th>
+                        <th>Состояние</th>
+                        <th>Действие</th>
+                    </tr>
+                    <!--ряд с ячейками заголовков-->
+                </table>
+                <a class="btnLogin btn btn-light" id="add_new_driver" onclick="NewDriver()">Добавить водителя</a>
                 <br>
             </div>
             <br>
         </div>
 
     </div>
+    <script>
+        function EditRoute() {
+            let a = document.getElementById('chosenRouteOnEditing').value;
+            location.pathname = 'Home/EditingRoute/' + a;
+        }
+        function NewDriver() {
+            location.pathname = 'Home/NewDriver';
+        }
+    </script>
 </body>
-
 
 
 

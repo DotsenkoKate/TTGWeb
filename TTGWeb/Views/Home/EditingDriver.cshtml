@@ -2,48 +2,47 @@
     ViewData["Title"] = "Редактирование водителя";
     Layout = "_LayoutMain";
 }
-<body onload="SelectOptionOnNewDriver()">
+
+<body onload="SelectOptionOnNewDriver(), DriverInfoOnEditingDriver(1)">
     <h1 align="center">Параметры редактирования</h1>
     <br>
-    <form method="post" style="margin-left:10rem; margin-right:5rem">
+    <form method="post" id="editing_driver" style="margin-left:10rem; margin-right:5rem">
         <div style="width:70%">
             <div>
                 <span style="font-size: 15pt">ФИО</span>
-                <input class="form-control" style="text-align: left;" id="newDriverName" />
+                <input class="form-control" style="text-align: left;" id="driver_name" required />
                 <br>
             </div>
             <span style="font-size: 15pt">Паспортные данные</span> <br>
-            <div style="display: flex">
-                <div> <label>Серия</label><input class="form-control" style="text-align: left;" id="passportSerial" />  </div>
-                <div style="margin-left: 10px"> <label>Номер</label> <input class="form-control" style="text-align: left;" id="passportNum" /> </div>
-
-            </div>
+            <input class="form-control" style="text-align: left;" id="passport" required />
             <br>
             <div>
                 <span style="font-size: 15pt">Номер маршрута</span>
-                <select class="btnLogin btn btn-light" name="route" id="route" onchange="GetRoutesOnNewDriver()"> </select>
+                <select class="btnLogin btn btn-light" name="route" id="route" onchange="GetRoutesOnNewDriver()">
+                </select>
             </div>
             <br>
             <div>
                 <span style="font-size: 15pt">Марка автомобиля</span>
-                <input class="form-control" style="text-align: left;" id="newAutoMarka" />
+                <input class="form-control" style="text-align: left;" id="AutoMarka" required />
                 <br>
             </div>
 
             <div>
                 <span style="font-size: 15pt">Гос номер автомобиля</span>
-                <input class="form-control" style="text-align: left;" id="newAutoNum" />
+                <input class="form-control" style="text-align: left;" id="AutoNum" required />
                 <br>
             </div>
 
             <div>
                 <span style="font-size: 15pt">Логин</span>
-                <input class="form-control" runat="server" style="text-align: left;" id="newDriverLogin" />
+                <input class="form-control" runat="server" style="text-align: left;" id="DriverLogin" required />
                 <br>
             </div>
             <div>
                 <span style="font-size: 15pt">Пароль</span>
-                <input class="form-control" runat="server" style="text-align: left;" id="newDriverPassword" />
+                <input class="form-control" runat="server" style="text-align: left;" type="password" id="DriverPassword"
+                    required />
                 <br>
             </div>
 
@@ -57,19 +56,18 @@
                 <a class="btnLogin btn btn-light" onclick="javascript:history.back(); return false;">Назад</a>
             </div>
             <div style="margin-left:10px">
-                <a class="btnLogin btn btn-light" onclick="SaveDriver()">Сохранить</a>
+                <input type="submit" class="btnLogin btn btn-light" value="Сохранить"></input>
 
             </div>
             <div style="margin-left:10px">
-                <a class="btnLogin btn btn-danger" onclick="DeleteDriver()">Удалить</a>
+                <a class="btnLogin btn btn-danger" onclick="DeleteDriver(1)">Удалить</a>
             </div>
         </div>
     </form>
-
+    <script>
+        document.getElementById("editing_driver").addEventListener("submit", function (e) {
+            e.preventDefault();
+            EditDriver();
+        });
+    </script>
 </body>
-
-
-
-
-
-

@@ -8,7 +8,7 @@
     <div class="container">
         <main role="main" class="pb-3">
 
-            <form class="login" method="post" autocomplete="off" style="margin-left:25rem;">
+            <form class="login" method="post" id="LogIn"  autocomplete="off" style="margin-left:25rem;">
 
                 <h1> Авторизация</h1><br>
                 <div>
@@ -22,104 +22,56 @@
                     <br>
                 </div>
 
-                <var style="color: red;">@ViewBag.Message</var>
+                <div id="error_message" style="color: red;"></div>
 
                 <br>
                 <p><a href="../Home/Registration" style="font-size: 12pt">У Вас нет учетной записи? </a></p>
                 <br>
                 <div style="display: flex;justify-content: normal;">
-                    <!---- <a class="btnLogin btn btn-light" style="font-size: 17pt;" asp-area="" asp-controller="Home" asp-action="Profile">Войти</a>-->
-                    <input type="submit" value="Войти" class="btnLogin btn btn-light" style="font-size: 17pt;"  asp-controller="Home" asp-action="CheckLogin"  />
+                    <!---- <a class="btnLogin btn btn-light" style="font-size: 17pt;" asp-area="" asp-controller="Home" asp-action="Profile">Войтиasp-controller="Home" asp-action="CheckLogin" </a>-->
+                    <input type="submit" value="Войти" class="btnLogin btn btn-light" style="font-size: 17pt;" />
                 </div>
 
             </form>
 
         </main>
     </div>
+<script>
+    document.getElementById("LogIn").addEventListener("submit", function (e) {
+            e.preventDefault();
+            login();
+        });
+        function login() {
+            var log = document.getElementById('login').value;
+            var pass = document.getElementById('password').value;
+            // 1. Создаём новый объект XMLHttpRequest
+            var xhr = new XMLHttpRequest();
+            var res;
+            // 2. Конфигурируем его: GET-запрос на URL
+            xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos/1', false);
+            // 3. Отсылаем запрос
+            xhr.send();
+            // 4. Если код ответа сервера не 200, то это ошибка
+            if (xhr.status != 200) {
+                // обработать ошибку
+                alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
 
-     <script>
-        var tokenKey = "accessToken";
- 
-        // отпавка запроса к контроллеру AccountController для получения токена
-        async function getTokenAsync() {
- 
-            // получаем данные формы и фомируем объект для отправки
-            const formData = new FormData();
-            formData.append("grant_type", "password");
-            formData.append("username", document.getElementById("login").value);
-            formData.append("password", document.getElementById("password").value);
- 
-            // отправляет запрос и получаем ответ
-            const response = await fetch("/token", {
-                method: "POST",
-                headers: {"Accept": "application/json"},
-                body: formData
-            });
-            // получаем данные 
-            const data = await response.json();
- 
-            // если запрос прошел нормально
-            if (response.ok === true) {
- 
-             /*   // изменяем содержимое и видимость блоков на странице
-                document.getElementById("userName").innerText = data.username;
-                document.getElementById("userInfo").style.display = "block";
-                document.getElementById("loginForm").style.display = "none";*/
-                // сохраняем в хранилище sessionStorage токен доступа
-                sessionStorage.setItem(tokenKey, data.access_token);
-                console.log(data.access_token);
-             }
-            else {
-                // если произошла ошибка, из errorText получаем текст ошибки
-                console.log("Error: ", response.status, data.errorText);
+            } else {
+                // вывести результат
+                res = JSON.parse(xhr.responseText);
             }
-        };
-        // отправка запроса к контроллеру ValuesController
-        async function getData(url) {
-            const token = sessionStorage.getItem(tokenKey);
- 
-            const response = await fetch(url, {
-                method: "GET",
-                headers: {
-                    "Accept": "application/json",
-                    "Authorization": "Bearer " + token  // передача токена в заголовке
-                }
-            });
-            if (response.ok === true) {
-                 
-                const data = await response.json();
-                alert(data)
+            if (res.id == log && res.id == pass) {
+                
+                window.localStorage.setItem("login", log);
+                location.pathname = '/Home/Profile'
+                location.replace(pathname);
+                
+                
             }
-            else
-                console.log("Status: ", response.status);
-        };
- 
-        // получаем токен
-        document.getElementById("submitLogin").addEventListener("click", e => {
- 
-            e.preventDefault();
-            getTokenAsync();
-        });
- 
-        // условный выход - просто удаляем токен и меняем видимость блоков
-        document.getElementById("logOut").addEventListener("click", e => {
- 
-            e.preventDefault();
-            document.getElementById("userName").innerText = "";
-            document.getElementById("userInfo").style.display = "none";
-            document.getElementById("loginForm").style.display = "block";
-            sessionStorage.removeItem(tokenKey);
-        });
- 
- 
-        // кнопка получения имя пользователя  - /api/values/getlogin
-        document.getElementById("getDataByLogin").addEventListener("click", e => {
- 
-            e.preventDefault();
-            getData("/api/values/getlogin");
-        });
- 
-    </script>
+            else (document.getElementById('error_message').innerHTML = 'Некорретно введен логин или пароль!');
 
+        }
+
+</script>
 </body>
 

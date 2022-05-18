@@ -1,6 +1,4 @@
-﻿@model TTGWeb.Models.NewUser
-
-@{
+﻿@{
     ViewData["Title"] = "Регистрация";
     Layout = "_LayoutStart";
 }
@@ -8,7 +6,7 @@
 <body>
     <div class="container">
         <main role="main" class="pb-3">
-            <form class="signin" method="post" autocomplete="off" style="margin-left:15rem; margin-right:15rem">
+            <form class="signin" method="post" autocomplete="off" id="Regestration" style="margin-left:15rem; margin-right:15rem">
                 <h1 style="text-align: center"> Регистрация</h1><br>
                 <div>
                     <span style="font-size: 17pt;">ФИО</span>
@@ -33,12 +31,18 @@
                 <br>
                 <div style="display: flex;justify-content: center;">
                     <!----<a class="btnLogin btn btn-light"  asp-controller="Home" asp-action="Registration">Зарегистрироваться</a> -->
-                    <input type="submit" style="font-size: 16pt;" value="Зарегистрироваться" class="btnLogin btn btn-light" onclick="CreateNewUser()" />
+                    <input type="submit" style="font-size: 16pt;" value="Зарегистрироваться" class="btnLogin btn btn-light"/>
                 </div>
                 <br>
             </form>
         </main>
     </div>
+<script>
+ document.getElementById("Regestration").addEventListener("submit", function (e) {
+            e.preventDefault();
+            CreateNewUser();
+        });
 
+</script>
    
 </body>

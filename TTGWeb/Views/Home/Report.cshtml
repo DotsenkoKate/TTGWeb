@@ -2,19 +2,16 @@
     ViewData["Title"] = "Отчет";
     Layout = "_LayoutMain";
 }
-<body>
+<body onload="SelectOptionOnReport()">
 
     <h1 align="center">Параметры отчета</h1>
 
     <div>
         <label style="font-size: 24px; margin-right: 24px;">Выберете маршрут</label>
-        <select class="btnLogin btn btn-light" name="route" id="route1">
-            <option value="98">98</option>
-            <option value="10с">10c</option>
-        </select>
+        <select class="btnLogin btn btn-light" name="route" id="routeOnReport"></select>
     </div> 
     <br>
-    <div style=" width: 60%; display: flex;" }>
+    <div style=" width: 60%; display: flex;">
 
         <div>
             <label style="font-size: 24px; margin-right: 40px;">Выберете промежуток</label>
@@ -27,7 +24,7 @@
     </div>
     <br>
     <div>
-        <a class="btnLogin btn btn-light" asp-area="" asp-controller="Home" asp-action="ReportResult" asp-route-login=@ViewBag.Login>Сформировать</a>
+        <a class="btnLogin btn btn-light" onclick="Report()">Сформировать</a>
     </div>
 
 </body>

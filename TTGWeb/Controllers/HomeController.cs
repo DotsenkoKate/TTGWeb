@@ -26,7 +26,7 @@ namespace TTGWeb.Controllers
             return View();
         }
 
-        public IActionResult CheckLogin(string login, string password)
+/*        public IActionResult CheckLogin(string login, string password)
         {
             WebRequest request = WebRequest.Create("https://jsonplaceholder.typicode.com/todos/1");
             WebResponse response = request.GetResponse();
@@ -60,6 +60,7 @@ namespace TTGWeb.Controllers
 
             return View("Login");
         }
+        */
 
         public IActionResult Registration()
         {
@@ -70,7 +71,7 @@ namespace TTGWeb.Controllers
         {
             return View();
         }
-        public IActionResult ShowProfile(string login)
+       /* public IActionResult ShowProfile(string login)
         {
 
            ProfileModel model = new ProfileModel();
@@ -93,7 +94,7 @@ namespace TTGWeb.Controllers
 
             ProfileModel? model = JsonSerializer.Deserialize<ProfileModel>(result);*/
             
-
+/*
             model.Name = "Петр";
             model.Login = login;
             model.License = "123456789";
@@ -105,7 +106,7 @@ namespace TTGWeb.Controllers
             ViewData["Password"] = model.Password;
 
             return View("Profile");
-        }
+        }*/
         public IActionResult MyRoutes(string login) {
 
             ViewData["Login"] = login;

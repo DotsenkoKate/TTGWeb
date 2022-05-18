@@ -5,18 +5,16 @@
 <body onload="SelectOptionOnNewDriver()">
     <h1 align="center">Добавление нового водителя</h1>
     <br>
-    <form method="post" style="margin-left:10rem; margin-right:5rem">
+    <form id="new_driver" style="margin-left:10rem; margin-right:5rem">
         <div style="width:70%">
             <div>
                 <span style="font-size: 15pt">ФИО</span>
-                <input class="form-control" style="text-align: left;" id="newDriverName" />
+                <input class="form-control" style="text-align: left;" id="newDriverName" required/>
                 <br>
             </div>
             <span style="font-size: 15pt">Паспортные данные</span> <br><br>
             <div style="display: flex">
-                <div> <label>Серия</label><input class="form-control" style="text-align: left;" id="passportSerial" /></div>
-                <div style="margin-left: 10px"> <label>Номер</label> <input class="form-control" style="text-align: left;" id="passportNum" /></div>
-
+                <input class="form-control" style="text-align: left;" id="passport" required/>
             </div>
             <br>
             <div>
@@ -26,24 +24,24 @@
             <br>
             <div>
                 <span style="font-size: 15pt">Марка автомобиля</span>
-                <input class="form-control" style="text-align: left;" id="newAutoMarka" />
+                <input class="form-control" style="text-align: left;" id="newAutoMarka" required/>
                 <br>
             </div>
 
             <div>
                 <span style="font-size: 15pt">Гос номер автомобиля</span>
-                <input class="form-control" style="text-align: left;" id="newAutoNum" />
+                <input class="form-control" style="text-align: left;" id="newAutoNum" required />
                 <br>
             </div>
 
             <div>
                 <span style="font-size: 15pt">Логин</span>
-                <input class="form-control" runat="server" style="text-align: left;" id="newDriverLogin" />
+                <input class="form-control" runat="server" style="text-align: left;" id="newDriverLogin"  required/>
                 <br>
             </div>
             <div>
                 <span style="font-size: 15pt">Пароль</span>
-                <input class="form-control" runat="server" style="text-align: left;" id="newDriverPassword" />
+                <input class="form-control" runat="server" style="text-align: left;" id="newDriverPassword" required/>
                 <br>
             </div>
 
@@ -53,16 +51,22 @@
         <div style="display:flex">
             <br>
             <div>
-                <a class="btnLogin btn btn-light" asp-route-login=@ViewBag.Login onclick="javascript:history.back(); return false;">Назад</a>
+                <a class="btnLogin btn btn-light"  onclick="javascript:history.back(); return false;">Назад</a>
             </div>
             <div style="margin-left:10px">
-                <a class="btnLogin btn btn-light" onclick="SaveDriver()">Сохранить</a>
+                <input type="submit" class="btnLogin btn btn-light" id="save_new_driver" value="Создать"></a>
 
             </div>
         </div>
 
     </form>
     <br>
+    <script>
 
+         document.getElementById("new_driver").addEventListener("submit", function (e) {
+            e.preventDefault();
+            CreateDriver();
+        });
+    </script>
 </body>
 

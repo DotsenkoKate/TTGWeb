@@ -9,7 +9,7 @@
         <label for="routeOnMyRoutes" style="font-size: 24px; margin-right: 24px;">Выберете маршрут</label>
         <select class="btnLogin btn btn-light" name="route" id="routeOnMyRoutes" onchange="GetRoutesOnMyRoutes()"></select>
         <br>
-        <a class="btnLogin btn btn-light" style="margin: 0 15px;"  asp-controller="Home" asp-action="NewRoute" asp-route-login=@ViewBag.Login>Добавить новый маршрут</a>
+        <a class="btnLogin btn btn-light" style="margin: 0 15px;"  href="../Home/NewRoute">Добавить новый маршрут</a>
     </div>
     <br>
     <br>
@@ -45,7 +45,7 @@
                             <tr><th>№</th><th>ФИО</th><th>Гос номер автомобиля</th><th>Марка автомобиля</th><th>Состояние</th></tr> <!--ряд с ячейками заголовков-->
                         </table>
                         <br>
-                        <a class="btnLogin btn btn-light" asp-area="" asp-controller="Home" asp-action="Editing" asp-route-login=@ViewBag.Login>Отредактировать</a>
+                        <a class="btnLogin btn btn-light" href="../Home/Editing">Отредактировать</a>
                     </div>
                 </div>
             </div>
