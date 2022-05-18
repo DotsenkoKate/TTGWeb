@@ -3,28 +3,28 @@
     Layout = "_LayoutMain";
 }
 
-<body onload="Show()">
+<body>
     <h1 align="center"> Профиль <br></h1>
     <div style="width: 700px;display: block;margin-left: auto;margin-right: auto;">
         <form id="profile_info">
             <div>
                 <span style=" font-size: 20pt;">ФИО</span>
-                <input class="form-control" id="name" runat="server" style="text-align: left;" required/>
+                <input class="form-control" id="name" runat="server" style="text-align: left;" value=@ViewBag.Name required/>
                 <br>
             </div>
             <div>
                 <span style=" font-size: 20pt;">Номер лицензии</span>
-                <input class="form-control" id="license" runat="server" style="text-align: left;"  required/>
+                <input class="form-control" id="license" runat="server" style="text-align: left;" value=@ViewBag.License required/>
                 <br>
             </div>
             <div>
                 <span style=" font-size: 20pt;">Логин</span>
-                <input class="form-control" id="login" runat="server" style="text-align: left;"  required/>
+                <input class="form-control" id="login" runat="server" style="text-align: left;" value=@ViewBag.Login required/>
                 <br>
             </div>
             <div>
                 <span style=" font-size: 20pt;">Пароль</span>
-                <input class="form-control" type="password" id="password" runat="server" style="text-align: left;"  required/>
+                <input class="form-control" type="password" id="password" runat="server" style="text-align: left;" value=@ViewBag.Password required/>
                 <br>
             </div>
         </form>

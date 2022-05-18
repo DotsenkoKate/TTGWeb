@@ -9,6 +9,7 @@ using TTGWeb.Models;
 
 namespace TTGWeb.Controllers
 {
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -18,6 +19,7 @@ namespace TTGWeb.Controllers
         {
             _logger = logger;
         }
+
 
         public IActionResult Login()
         {
@@ -63,7 +65,7 @@ namespace TTGWeb.Controllers
         {
             return View();
         }
-     
+    
         public IActionResult Profile()
         {
             return View();
@@ -71,8 +73,8 @@ namespace TTGWeb.Controllers
         public IActionResult ShowProfile(string login)
         {
 
-           /*ProfileModel model = new ProfileModel();
-            string result = "";
+           ProfileModel model = new ProfileModel();
+            /*string result = "";
     
             WebRequest request = WebRequest.Create("https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/test.json?token=GHSAT0AAAAAABTRH4JIH6IK72JH65DU327EYUDZ34Q");
             WebResponse response = request.GetResponse();
@@ -89,7 +91,7 @@ namespace TTGWeb.Controllers
             }
             response.Close();
 
-            ProfileModel? model = JsonSerializer.Deserialize<ProfileModel>(result);
+            ProfileModel? model = JsonSerializer.Deserialize<ProfileModel>(result);*/
             
 
             model.Name = "Петр";
@@ -100,7 +102,7 @@ namespace TTGWeb.Controllers
             ViewData["Name"] = model.Name;
             ViewData["License"] = model.License;
             ViewData["Login"] = model.Login;
-            ViewData["Password"] = model.Password;*/
+            ViewData["Password"] = model.Password;
 
             return View("Profile");
         }
