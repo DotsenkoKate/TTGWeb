@@ -28,5 +28,4 @@ app.UseEndpoints(endpoints =>
         pattern: "{controller=Home}/{action=Login}/{id?}");
 });
 
-
 app.Run();

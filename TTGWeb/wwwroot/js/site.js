@@ -223,21 +223,6 @@ function DeleteDriver(item, url) {
 
 }
 
-
-
-function check_route() {
-    let a = document.getElementById('choose_route').value;
-    if (a == 'null') {
-        show1('null')
-    }
-    else if (a == '98') {
-        show1('98')
-
-    }
-    else if (a == '10c') {
-        show1('10c')
-    }
-}
  
 //Функции для страницы Мои маршруты
 function GetMyRoutes() {
@@ -508,6 +493,98 @@ $(function () {
 });
 
 
+
+
+function GetRequest() {
+    // 1. Создаём новый объект XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+
+    // 2. Конфигурируем его: GET-запрос на URL
+    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos/1', false);
+
+    // 3. Отсылаем запрос
+    xhr.send();
+
+    // 4. Если код ответа сервера не 200, то это ошибка
+    if (xhr.status != 200) {
+        // обработать ошибку
+        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
+    } else {
+        // вывести результат
+
+        var tomUser = JSON.parse(xhr.responseText);
+        //document.write(tomUser.title); // Tom
+        alert(tomUser.title);
+        //alert(xhr.responseText); // responseText -- текст ответа.
+
+    }
+
+}
+function PostRequest() {
+    // 1. Создаём новый объект XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+
+    // 2. Конфигурируем его: GET-запрос на URL
+    xhr.open('POST', 'https://jsonplaceholder.typicode.com/todos/1', true);
+
+    // 3. Отсылаем запрос
+    xhr.send();
+
+    // 4. Если код ответа сервера не 200, то это ошибка
+    if (xhr.status != 200) {
+        // обработать ошибку
+        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
+    } else {
+        // вывести результат
+
+        var tomUser = JSON.parse(xhr.responseText);
+        //document.write(tomUser.title); // Tom
+        alert(tomUser.title);
+        //alert(xhr.responseText); // responseText -- текст ответа.
+
+    }
+
+
+}
+//Функции для Редактирование маршрута
+function CreateRowStation(index, nameStation, location, description, a) {
+    //Для начала, вам нужно найти элемент, в который нужно вставить вашу разметку. 
+    var table = document.getElementById('dynamic');
+    //Теперь создаем строку и присваиваем ее переменной.
+    var tr = document.createElement("tr");
+    //добавляем разметку в созданную строку
+    tr.innerHTML = '<td> <input type="text" size="1" id="num" value=' + (index + 1) + '></td> <td><input type="text" size="16" id="nameStation" value=' + nameStation + '></td> <td> <input type="text" size="20" id="location" value=' + location + '></td><td><textarea rows="3" cols="10" id="description">' + description + '</textarea></td><td><button class="add btnLogin btn btn-light" type="button" onclick="addXY(this)">Добавить</button><button class="del btnLogin btn btn-light" type = "button" onclick="delXY(this)">Удалить</button></td>';
+    //вставляем строку в таблицу
+    table.appendChild(tr);
+}
+function TableStationOnEditingRoute(a) {
+    var stationList = GetInfoAboutStations();
+    $('#dynamic').find('td').remove();
+    stationList.map(
+        (station, index) => {
+            //Надо поменять id на необходимые поля из запроса
+            CreateRowStation(index, station.id, station.id, station.id, a);
+        }
+    );
+}
+function GetInfoAboutStations() {
+    // 1. Создаём новый объект XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+    var res;
+    // 2. Конфигурируем его: GET-запрос на URL
+    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos', false);
+    // 3. Отсылаем запрос
+    xhr.send();
+    // 4. Если код ответа сервера не 200, то это ошибка
+    if (xhr.status != 200) {
+        // обработать ошибку
+        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
+    } else {
+        // вывести результат
+        res = JSON.parse(xhr.responseText);
+    }
+    return res;
+}
 function init1() {
 
     var myMap = new ymaps.Map("map", {
@@ -610,95 +687,8 @@ function ShowMapEditigRoute() {
     }
 
 }
+function test(){
 
-function GetRequest() {
-    // 1. Создаём новый объект XMLHttpRequest
-    var xhr = new XMLHttpRequest();
+    window.sessionStorage.setItem("login", "a")
 
-    // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos/1', false);
-
-    // 3. Отсылаем запрос
-    xhr.send();
-
-    // 4. Если код ответа сервера не 200, то это ошибка
-    if (xhr.status != 200) {
-        // обработать ошибку
-        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
-    } else {
-        // вывести результат
-
-        var tomUser = JSON.parse(xhr.responseText);
-        //document.write(tomUser.title); // Tom
-        alert(tomUser.title);
-        //alert(xhr.responseText); // responseText -- текст ответа.
-
-    }
-
-}
-function PostRequest() {
-    // 1. Создаём новый объект XMLHttpRequest
-    var xhr = new XMLHttpRequest();
-
-    // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('POST', 'https://jsonplaceholder.typicode.com/todos/1', true);
-
-    // 3. Отсылаем запрос
-    xhr.send();
-
-    // 4. Если код ответа сервера не 200, то это ошибка
-    if (xhr.status != 200) {
-        // обработать ошибку
-        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
-    } else {
-        // вывести результат
-
-        var tomUser = JSON.parse(xhr.responseText);
-        //document.write(tomUser.title); // Tom
-        alert(tomUser.title);
-        //alert(xhr.responseText); // responseText -- текст ответа.
-
-    }
-
-
-}
-
-
-function CreateRowStation(index, nameStation, location, description, a) {
-    //Для начала, вам нужно найти элемент, в который нужно вставить вашу разметку. 
-    var table = document.getElementById('dynamic');
-    //Теперь создаем строку и присваиваем ее переменной.
-    var tr = document.createElement("tr");
-    //добавляем разметку в созданную строку
-    tr.innerHTML = '<td> <input type="text" size="1" id="num" value=' + (index + 1) + '></td> <td><input type="text" size="16" id="nameStation" value=' + nameStation + '></td> <td> <input type="text" size="20" id="location" value=' + location + '></td><td><textarea rows="3" cols="10" id="description">' + description + '</textarea></td><td><button class="add btnLogin btn btn-light" type="button" onclick="addXY(this)">Добавить</button><button class="del btnLogin btn btn-light" type = "button" onclick="delXY(this)">Удалить</button></td>';
-    //вставляем строку в таблицу
-    table.appendChild(tr);
-}
-function TableStationOnEditingRoute(a) {
-    var stationList = GetInfoAboutStations();
-    $('#dynamic').find('td').remove();
-    stationList.map(
-        (station, index) => {
-            //Надо поменять id на необходимые поля из запроса
-            CreateRowStation(index, station.id, station.id, station.id, a);
-        }
-    );
-}
-function GetInfoAboutStations() {
-    // 1. Создаём новый объект XMLHttpRequest
-    var xhr = new XMLHttpRequest();
-    var res;
-    // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos', false);
-    // 3. Отсылаем запрос
-    xhr.send();
-    // 4. Если код ответа сервера не 200, то это ошибка
-    if (xhr.status != 200) {
-        // обработать ошибку
-        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
-    } else {
-        // вывести результат
-        res = JSON.parse(xhr.responseText);
-    }
-    return res;
 }
