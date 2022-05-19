@@ -1,0 +1,30 @@
+{
+  "stations": [
+  {
+    "longitute": 48.724803,
+    "lalitute": 44.468239,
+    "name": "ул.Добрая",
+    "desciption": "около Автозака"
+  },
+  {
+    "longitute": 48.721234,
+    "lalitute": 44.473542,
+    "name": "ул.Красивая",
+    "desciption": "около Поля с сеном"
+  },
+  {
+    "longitute": 48.717174,
+    "lalitute": 44.483618,
+    "name": "ул.Быстрая",
+    "desciption": "около Метро"
+  }
+ ],
+  "cars": [
+  {
+    "longitute": 48.721234,
+    "lalitute": 44.473542,
+    "num": "A134AA123"
+  }
+  ]
+
+}
