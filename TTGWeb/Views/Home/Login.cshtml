@@ -4,21 +4,24 @@
 }
 <script src="~/js/LoginScript.js" asp-append-version="true"></script>
 @model LoginViewModel
+
 <body>
     <div class="container">
         <main role="main" class="pb-3">
 
-            <form class="login" method="post" id="LogIn"  autocomplete="off" style="margin-left:25rem;">
+            <form class="login" method="post" id="LogIn" autocomplete="off" style="margin-left:25rem;">
 
                 <h1> Авторизация</h1><br>
                 <div>
                     <span style=" font-size: 17pt;">Логин</span>
-                    <input class="form-control" asp-for="Login" name="login" id="login" runat="server" style="text-align: left;" required />
+                    <input class="form-control" asp-for="Login" name="login" id="login" runat="server"
+                        style="text-align: left;" required />
                     <br>
                 </div>
                 <div>
                     <span style=" font-size: 17pt;">Пароль</span>
-                    <input class="form-control" asp-for="Password" name="password" id="password" runat="server" style="text-align: left;" type="password" required />
+                    <input class="form-control" asp-for="Password" name="password" id="password" runat="server"
+                        style="text-align: left;" type="password" required />
                     <br>
                 </div>
 
@@ -36,8 +39,8 @@
 
         </main>
     </div>
-<script>
-    document.getElementById("LogIn").addEventListener("submit", function (e) {
+    <script>
+        document.getElementById("LogIn").addEventListener("submit", function (e) {
             e.preventDefault();
             login();
         });
@@ -61,17 +64,16 @@
                 res = JSON.parse(xhr.responseText);
             }
             if (res.id == log && res.id == pass) {
-                
+
                 window.localStorage.setItem("login", log);
                 location.pathname = '/Home/Profile'
                 location.replace(pathname);
-                
-                
+
+
             }
             else (document.getElementById('error_message').innerHTML = 'Некорретно введен логин или пароль!');
 
         }
 
-</script>
+    </script>
 </body>
-

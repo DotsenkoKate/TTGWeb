@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,27 +8,28 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
+
 <body>
     <header>
 
         <nav class="menu navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
             <div class="container">
                 <img src="~/images/bus1.png" width="50" height="50" style="border-radius:50px; margin-right: 10px" />
-                <a class="logo navbar-brand"   asp-controller="Home" asp-action="Profile"  >TimeToGo</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <a class="logo navbar-brand" asp-controller="Home" asp-action="Profile">TimeToGo</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse justify-content-center ">
                     <ul class="top navbar-nav flex-grow-1">
                         <li class="nav-item ">
-                            <a class="  nav-link text-dark" asp-controller="Home" asp-action="Profile" >Мой профиль</a>
+                            <a class="  nav-link text-dark" asp-controller="Home" asp-action="Profile">Мой профиль</a>
                         </li>
                         <li class="nav-item">
-                            <a class="  nav-link text-dark"  asp-controller="Home" asp-action="MyRoutes">Мои маршруты</a>
+                            <a class="  nav-link text-dark" asp-controller="Home" asp-action="MyRoutes">Мои маршруты</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Report" >Отчёт</a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Report">Отчёт</a>
                         </li>
 
                     </ul>
@@ -35,7 +37,8 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse justify-content-center ">
                     <ul class="acc navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark"  asp-controller="Home" asp-action="Profile">Вы вошли как  <span id="ownerspan"><br><b></b></span></a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Profile">Вы вошли как <span
+                                    id="ownerspan"><br><b></b></span></a>
                         </li>
                     </ul>
                 </div>
@@ -62,10 +65,11 @@
     <script src="~/lib/daterangepicker/moment.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <script>
-    
-        let a =localStorage.getItem('login');
+
+        let a = localStorage.getItem('login');
         document.getElementById("ownerspan").innerHTML = '<br><b>' + a + '</b>';
 
     </script>
 </body>
+
 </html>

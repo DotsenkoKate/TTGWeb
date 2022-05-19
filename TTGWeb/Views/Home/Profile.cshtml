@@ -9,42 +9,42 @@
         <form id="profile_info">
             <div>
                 <span style=" font-size: 20pt;">ФИО</span>
-                <input class="form-control" id="name" runat="server" style="text-align: left;" required/>
+                <input class="form-control" id="name" runat="server" style="text-align: left;" required />
                 <br>
             </div>
             <div>
                 <span style=" font-size: 20pt;">Номер лицензии</span>
-                <input class="form-control" id="license" runat="server" style="text-align: left;" required/>
+                <input class="form-control" id="license" runat="server" style="text-align: left;" required />
                 <br>
             </div>
             <div>
                 <span style=" font-size: 20pt;">Логин</span>
-                <input class="form-control" id="login" runat="server" style="text-align: left;" required/>
+                <input class="form-control" id="login" runat="server" style="text-align: left;" required />
                 <br>
             </div>
             <div>
                 <span style=" font-size: 20pt;">Пароль</span>
-                <input class="form-control" type="password" id="password" runat="server" style="text-align: left;"  required/>
+                <input class="form-control" type="password" id="password" runat="server" style="text-align: left;"
+                    required />
                 <br>
             </div>
 
-        <div>
-            <div style="display: inline-block;">
-                <input type="submit" class="btnLogin btn btn-light" style="font-size: 18pt; border-radius: .45rem;" value="Сохранить">
-            </div>
+            <div>
+                <div style="display: inline-block;">
+                    <input type="submit" class="btnLogin btn btn-light" style="font-size: 18pt; border-radius: .45rem;"
+                        value="Сохранить">
+                </div>
         </form>
-            <div style="display: inline-block;">
-                <a class="btn1 btn btn-danger"  asp-controller="Home" asp-action="Login">Выйти</a>
-            </div>
+        <div style="display: inline-block;">
+            <a class="btn1 btn btn-danger" asp-controller="Home" asp-action="Login">Выйти</a>
         </div>
+    </div>
     </div>
     <script>
 
-         document.getElementById("profile_info").addEventListener("submit", function (e) {
+        document.getElementById("profile_info").addEventListener("submit", function (e) {
             e.preventDefault();
             SaveNewProfileInfo();
         });
     </script>
 </body>
-
-

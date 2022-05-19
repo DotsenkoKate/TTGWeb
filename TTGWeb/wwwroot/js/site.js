@@ -129,7 +129,7 @@ function GetStations() {
 
 
 }
-function CreateRowDriver(index, name, autonum, automodel, state, a) {
+function CreateRowDrivers(index, name, autonum, automodel, state, a) {
     //Для начала, вам нужно найти элемент, в который нужно вставить вашу разметку. 
     var table = document.getElementById('tabledriverediting');
     //Теперь создаем строку и присваиваем ее переменной.
@@ -145,7 +145,7 @@ function TableDriversOnEditing(a) {
     driverList.map(
         (driver, index) => {
             //Надо поменять id на необходимые поля из запроса
-            CreateRowDriver(index, driver.id, driver.id, driver.id, driver.id, a);
+            CreateRowDrivers(index, driver.id, driver.id, driver.id, driver.id, a);
         }
     );
 }
@@ -481,73 +481,20 @@ function init(a) {
     addItems(myMap);
     setInterval(autoupdate, 15000);
     function autoupdate() {
-        myMap.destroy();
-        myMap = null;
-        init();
+        myMap.geoObjects.removeAll();
+        addItems(myMap);
     }
 
 }
 function addItems(myMap) {
-    myMap.geoObjects
-        .add(new ymaps.Placemark([48.724803, 44.468239], {
-            balloonContent: 'ул. Добрая'
-        }, {
-            preset: "islands#circleIcon",
-            iconColor: '#0095b6'
-        }))
-        .add(new ymaps.Placemark([48.721234, 44.473542], {
-            balloonContent: 'ул. Красивая'
-        }, {
-            preset: "islands#circleIcon",
-            iconColor: '#0095b6'
-        }))
-        .add(new ymaps.Placemark([48.717174, 44.483618], {
-            balloonContent: 'ул. Умная'
-        }, {
-            preset: "islands#circleIcon",
-            iconColor: '#0095b6'
-        }))
-        .add(new ymaps.Placemark([48.713997, 44.496888], {
-            balloonContent: 'ул. Ленина'
-        }, {
-            preset: "islands#circleIcon",
-            iconColor: '#0095b6'
-        }))
-        .add(new ymaps.Placemark([48.714849, 44.493857], {
-            balloonContent: 'Петров Петр Петрович'
-        }, {
-            iconLayout: 'default#imageWithContent',
-            // Своё изображение иконки метки.
-            iconImageHref: '/images/busPoint.png',
-            // Размеры метки.
-            iconImageSize: [32, 32],
-            iconImageOffset: [-24, -24],
-            // Смещение слоя с содержимым относительно слоя с картинкой.
-            iconContentOffset: [15, 15]
-        }))
 
-    /*
-        var myPolyline = new ymaps.Polyline([
-            // Указываем координаты вершин.
-            [48.724803, 44.468239],
-            [48.721234, 44.473542],
-            [48.717174, 44.483618],
-            [48.713997, 44.496888]
-        ], {}, {
-            // Ширину линии.
-            strokeWidth: 4,
-            // Добавляем в контекстное меню новый пункт, позволяющий удалить ломаную.
-    
-        });
-    
-        // Добавляем линию на карту.
-        myMap.geoObjects.add(myPolyline);*/
+
+    GetMarkForMap(myMap);
+    GetDriverMarkForMap(myMap);
+    var a = GetRouteForMap();
 
     var multiRoute = new ymaps.multiRouter.MultiRoute({
-        referencePoints: [[48.724803, 44.468239],
-        [48.721234, 44.473542],
-        [48.717174, 44.483618],
-        [48.713997, 44.496888]]
+        referencePoints: a
     }, {
 
         wayPointVisible: false,
@@ -558,6 +505,110 @@ function addItems(myMap) {
     myMap.geoObjects.add(multiRoute);
 }
 
+function GetRouteForMap() {
+    var array = [];
+    // 1. Создаём новый объект XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+
+    // 2. Конфигурируем его: GET-запрос на URL
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/test.json?token=GHSAT0AAAAAABUWIHI5MBTTEJ2ABE44QPIYYUGKFRA', false);
+
+    // 3. Отсылаем запрос
+    xhr.send();
+
+    // 4. Если код ответа сервера не 200, то это ошибка
+    if (xhr.status != 200) {
+        // обработать ошибку
+        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
+    } else {
+        // вывести результат
+
+        var res = JSON.parse(xhr.responseText);
+        res.stations.map(
+            (data) => {
+                //Надо поменять id на необходимые поля из запроса
+                array.push([data.longitute, data.lalitute]);
+            }
+        );
+    }
+    return array;
+
+}
+
+function GetDriverMarkForMap(myMap) {
+    // 1. Создаём новый объект XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+
+    // 2. Конфигурируем его: GET-запрос на URL
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/test.json?token=GHSAT0AAAAAABUWIHI5MBTTEJ2ABE44QPIYYUGKFRA', false);
+
+    // 3. Отсылаем запрос
+    xhr.send();
+
+    // 4. Если код ответа сервера не 200, то это ошибка
+    if (xhr.status != 200) {
+        // обработать ошибку
+        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
+    } else {
+        // вывести результат
+
+        var res = JSON.parse(xhr.responseText);
+
+        res.cars.map(
+            (data) => {
+                //Надо поменять id на необходимые поля из запроса
+                myMap.geoObjects
+                    .add(new ymaps.Placemark([data.longitute, data.lalitute], {
+                        balloonContent: data.num
+                    }, {
+                        iconLayout: 'default#imageWithContent',
+                        // Своё изображение иконки метки.
+                        iconImageHref: '/images/busPoint.png',
+                        // Размеры метки.
+                        iconImageSize: [32, 32],
+                        iconImageOffset: [-24, -24],
+                        // Смещение слоя с содержимым относительно слоя с картинкой.
+                        iconContentOffset: [15, 15]
+                    }))
+            }
+        );
+    }
+
+}
+
+function GetMarkForMap(myMap) {
+    // 1. Создаём новый объект XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+
+    // 2. Конфигурируем его: GET-запрос на URL
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/test.json?token=GHSAT0AAAAAABUWIHI5MBTTEJ2ABE44QPIYYUGKFRA', false);
+
+    // 3. Отсылаем запрос
+    xhr.send();
+
+    // 4. Если код ответа сервера не 200, то это ошибка
+    if (xhr.status != 200) {
+        // обработать ошибку
+        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
+    } else {
+        // вывести результат
+        var res = JSON.parse(xhr.responseText);
+        res.stations.map(
+            (data) => {
+                //Надо поменять id на необходимые поля из запроса
+                myMap.geoObjects
+                    .add(new ymaps.Placemark([data.longitute, data.lalitute], {
+                        balloonContentHeader: data.name,
+                        balloonContentBody: data.desciption
+                    }, {
+                        preset: 'islands#icon',
+                        iconColor: '#0095b6'
+                    }))
+            }
+        );
+    }
+
+}
 //Функция для страницы Мой профиль
 function SaveNewProfileInfo() {
     var info = {
@@ -619,34 +670,37 @@ function GetUserInfo() {
 }
 
 
-
 //Функции для Редактирование маршрута
-function CreateRowStation(index, nameStation, location, description, a) {
+function CreateRowStation(nameStation, lalitude, longitude, description) {
     //Для начала, вам нужно найти элемент, в который нужно вставить вашу разметку. 
     var table = document.getElementById('dynamic');
     //Теперь создаем строку и присваиваем ее переменной.
     var tr = document.createElement("tr");
     //добавляем разметку в созданную строку
-    tr.innerHTML = '<td> <input type="text" size="1" id="num" value=' + (index + 1) + '></td> <td><input type="text" size="16" id="nameStation" value=' + nameStation + '></td> <td> <input type="text" size="20" id="location" value=' + location + '></td><td><textarea rows="3" cols="10" id="description">' + description + '</textarea></td><td><button class="add btnLogin btn btn-light" type="button" onclick="addXY(this)">Добавить</button><button class="del btnLogin btn btn-light" type = "button" onclick="delXY(this)">Удалить</button></td>';
+    tr.innerHTML = '<td><input type="text" size="16" id="nameStation" value=' + nameStation + '></td> <td> <input type="text" size="10" id="lalitude" value=' + lalitude + '></td><td> <input type="text" size="10" id="longitude" value=' + longitude + '></td><td><textarea rows="3" cols="10" id="description">' + description + '</textarea></td><td><button class="add btnLogin btn btn-light" type="button" onclick="addXY(this)">Добавить</button><button class="del btnLogin btn btn-light" type = "button" onclick="delXY(this)">Удалить</button></td>';
     //вставляем строку в таблицу
     table.appendChild(tr);
 }
-function TableStationOnEditingRoute(a) {
+function TableStationOnEditingRoute() {
     var stationList = GetInfoAboutStations();
     $('#dynamic').find('td').remove();
     stationList.map(
         (station, index) => {
             //Надо поменять id на необходимые поля из запроса
-            CreateRowStation(index, station.id, station.id, station.id, a);
+            CreateRowStation(station.id, station.id, station.id, station.id);
         }
     );
 }
+
 function GetInfoAboutStations() {
+
+    //Добавить к адресу
+    var dat = window.location.pathname.split("/").pop();
     // 1. Создаём новый объект XMLHttpRequest
     var xhr = new XMLHttpRequest();
     var res;
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos', false);
+    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos/', false);
     // 3. Отсылаем запрос
     xhr.send();
     // 4. Если код ответа сервера не 200, то это ошибка
@@ -661,57 +715,28 @@ function GetInfoAboutStations() {
 }
 function init1() {
 
-    var myMap = new ymaps.Map("map", {
+    // Создание карты.
+    myMap = new ymaps.Map("map", {
         center: [48.717987, 44.481111],
-        zoom: 11
+        zoom: 12,
+        controls: ['fullscreenControl', 'zoomControl']
     }, {
         balloonMaxWidth: 200,
         searchControlProvider: 'yandex#search'
     });
-    myMap.geoObjects
-        .add(new ymaps.Placemark([48.724803, 44.468239], {
-            balloonContentHeader: "ул. Добрая",
-            balloonContent: '[48.724803, 44.468239]'
-        }, {
-            preset: 'islands#icon',
-            iconColor: '#0095b6'
-        }))
-        .add(new ymaps.Placemark([48.721234, 44.473542], {
-            balloonContentHeader: "ул. Красивая",
-            balloonContent: '[48.721234, 44.473542]'
-        }, {
-            preset: 'islands#icon',
-            iconColor: '#0095b6'
-        }))
-        .add(new ymaps.Placemark([48.717174, 44.483618], {
-            balloonContentHeader: "ул. Умная",
-            balloonContent: '[48.717174, 44.483618]'
-        }, {
-            preset: 'islands#icon',
-            iconColor: '#0095b6'
-        }))
-        .add(new ymaps.Placemark([48.713997, 44.496888], {
-            balloonContentHeader: "ул. Ленина",
+    GetMarkForMap(myMap);
+    var a = GetRouteForMap();
 
-            balloonContent: '[48.713997, 44.496888]'
-        }, {
-            preset: 'islands#icon',
-            iconColor: '#0095b6'
-        }))
     var multiRoute = new ymaps.multiRouter.MultiRoute({
-        referencePoints: [[48.724803, 44.468239],
-        [48.721234, 44.473542],
-        [48.717174, 44.483618],
-        [48.713997, 44.496888]]
+        referencePoints: a
     }, {
-
 
         wayPointVisible: false,
         routeStrokeWidth: 5,
         boundsAutoApply: true,
         zoomMargin: 30
     });
-
+    myMap.geoObjects.add(multiRoute);
 
     /* Начальный адрес метки */
 
@@ -731,10 +756,11 @@ function init1() {
 
         myPlacemark.events.add('dragend', function (e) {
             var cord = e.get('target').geometry.getCoordinates();
-            $('#ypoint').val(cord);
+            $('#ypoint').val(cord[0]);
+            $('#xpoint').val(cord[1]);
             ymaps.geocode(cord).then(function (res) {
                 var data = res.geoObjects.get(0).properties.getAll();
-                $('#address').val(data.text);
+
 
             });
         });
@@ -752,13 +778,54 @@ function init1() {
 }
 function ShowMapEditigRoute() {
 
-    ymaps.ready(init2);
+    ymaps.ready(map);
 
-    function init2() {
+    function map() {
 
         init1();
-
     }
+
+}
+
+function EditTable() {
+
+    let database = [];
+    document.getElementById("way").addEventListener("click", () => {
+
+        const table = document.getElementById("dynamic_table");
+        for (let i = 1; (row = table.rows[i]); i++) {
+            database.push({
+                station_name: row.cells[0].querySelector('input').value, // Значение input в ячейке
+                longitude: row.cells[1].querySelector('input').value, // Значение input в ячейке
+                lalitude: row.cells[2].querySelector('input').value, // Значение input в ячейке
+                description: row.cells[3].querySelector('textarea').value // Значение input в ячейке
+            });
+        }
+        console.log(database);
+        //calck(database);
+    });
+
+    const url = 'https://jsonplaceholder.typicode.com/todos/1';
+
+    var request = new Request(url, {
+        method: 'POST',
+        body: JSON.stringify(database),
+        headers: { 'content-type': 'application/json' }
+    });
+
+    fetch(request)
+        .then(
+            function (response) {
+                if (response.status !== 200) {
+                    alert('Что-то пошло не так. Код ошибки: ' + response.status);
+                    return;
+                }
+                else {
+                    alert("Успешно!");
+                    window.location.pathname = 'Home/Editing'
+                    return;
+                }
+            });
 
 }
 

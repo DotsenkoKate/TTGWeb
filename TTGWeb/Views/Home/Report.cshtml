@@ -2,6 +2,7 @@
     ViewData["Title"] = "Отчет";
     Layout = "_LayoutMain";
 }
+
 <body onload="SelectOptionOnReport()">
 
     <h1 align="center">Параметры отчета</h1>
@@ -9,7 +10,7 @@
     <div>
         <label style="font-size: 24px; margin-right: 24px;">Выберете маршрут</label>
         <select class="btnLogin btn btn-light" name="route" id="routeOnReport"></select>
-    </div> 
+    </div>
     <br>
     <div style=" width: 60%; display: flex;">
 
@@ -18,7 +19,8 @@
         </div>
 
         <div>
-            <input type="text" class="form-control" id="date" name="date" placeholder="Дата" required style="margin-left:20px" data="01.01.2021-30.06.2021">
+            <input type="text" class="form-control" id="date" name="date" placeholder="Дата" required
+                style="margin-left:20px" data="01.01.2021-30.06.2021">
         </div>
 
     </div>

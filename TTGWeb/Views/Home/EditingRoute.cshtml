@@ -2,72 +2,70 @@
     ViewData["Title"] = "Редактирование маршрута";
     Layout = "_LayoutMain";
 }
+
 <body onload="ShowMapEditigRoute(), TableStationOnEditingRoute()">
-    <script src="https://api-maps.yandex.ru/2.1/?apikey=35171b98-e159-494e-9a49-fb4f12e60d78&lang=ru_RU" type="text/javascript"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=35171b98-e159-494e-9a49-fb4f12e60d78&lang=ru_RU"
+        type="text/javascript"></script>
     <script src="polylineEditor.js" type="text/javascript"></script>
     <h2 align="center">Редактирование остановок</h2>
+    <form>
+        <button class="btnLogin btn btn-light" id="redrawMap">Обновить карту</button>
 
-    <button class="btnLogin btn btn-light" id="redrawMap">Обновить карту</button>
-
-    <div style="display:flex;">
-        <div>
+        <div style="display:flex;">
             <div>
-                <div id="map" style="width: 600px; height: 400px"></div>
+                <div>
+                    <div id="map" style="width: 600px; height: 400px"></div>
+                </div>
+
+                <div>
+                    <label>Широта:</label>
+                    <input type="text" id="ypoint" size=20; class="form-input">
+                    <label>Долгота:</label>
+                    <input type="text" id="xpoint" size=20; class="form-input">
+
+                </div>
+                <a class="btnLogin btn btn-light" id="way" onclick="EditTable()">Сохранить</a>
+                <a class="btnLogin btn btn-light" href="../Home/Editing">Назад</a>
             </div>
 
-            <div>
-                <label>Адрес:</label>
-                <input type="text" id="address">
+            <style>
 
-                <label>Координаты:</label>
-                <input type="text" id="ypoint" class="form-input">
+            </style>
+            <div>
+                <table class="table" cellspacing="0" cellpadding="1" id="dynamic_table">
+                    <thead>
+
+                        <tr>
+                            <th scope="col">Название</th>
+                            <th scope="col">Широта</th>
+                            <th scope="col">Долгота</th>
+                            <th scope="col">Описание</th>
+                            <th scope="col">&nbsp;</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="dynamic"> </tbody>
+                </table>
+
 
             </div>
-            <a class="btnLogin btn btn-light" id="way" onclick="allerting(7)">Сохранить</a>
-        </div>
-
-          <style>
-
-  </style>
-        <div >
-            <table class="table" cellspacing="0" cellpadding="1" id="dynamic_table">
-                <thead>
-
-                    <tr>
-                        <th scope="col">№</th>
-                        <th scope="col">Название</th>
-                        <th scope="col">Координаты</th>
-                        <th scope="col">Описание</th>
-                        <th scope="col">&nbsp;</th>
-                    </tr>
-                </thead>
-
-                <tbody id="dynamic"> </tbody>
-            </table>
-
 
         </div>
 
-    </div>
+    </form>
 
     <script>
-        function addXY(el){
+        function addXY(el) {
             var row = el.parentNode.parentNode;
-            if(row){
+            if (row) {
                 var clone = row.cloneNode(true);
                 row.parentNode.insertBefore(clone, row.nextSibling);
                 console.log(row);
             }
         }
-        function delXY(el){
+        function delXY(el) {
             var row = el.parentNode.parentNode;
-            row.parentNode.deleteRow((row.rowIndex)-1);
+            row.parentNode.deleteRow((row.rowIndex) - 1);
         }
     </script>
 </body>
-
-
-
-
-
-
