@@ -3,7 +3,7 @@
     Layout = "_LayoutMain";
 }
 
-<body onload="ReportResult(), TableDriversOnReport(), Best(), Worst()">
+<body onload="ReportResult(), CreateTablesOnResult()">
 
     <script src="https://www.google.com/jsapi"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -98,14 +98,13 @@
                 <br>
                 <h5><b>Водители</b></h5>
                 <span>Общая информация о водителях <br></span>
-                <table class="table" id="table">
+                <table class="table" id="tabledriver">
                     <tr>
                         <th>№</th>
                         <th>ФИО</th>
                         <th>Гос номер автомобиля</th>
                         <th>Кол-во рейсов</th>
                         <th>Заработанная прибыль</th>
-
                     </tr>
                 </table>
                 <br>
@@ -114,9 +113,10 @@
 
 
             <div id="profit_driver" style="width:100%; max-width:700px; height:500px;"></div>
+
             <div>
                 <span><b>Наихудшие рейсы</b><br></span>
-                <table class="table" id="worst">
+                <table id="worst" class="table">
                     <tr>
                         <th>№</th>
                         <th>ФИО</th>
@@ -128,8 +128,9 @@
                 <br>
             </div>
             <div>
+
                 <span><b>Наилучшие рейсы</b><br></span>
-                <table class="table" id="best">
+                <table id="best" class="table">
                     <tr>
                         <th>№</th>
                         <th>ФИО</th>
@@ -148,7 +149,9 @@
         <br>
         <a class="btnLogin btn btn-light" onclick="javascript:history.back(); return false;">Назад</a>
     </div>
-
-
     </div>
+    <script>
+
+    </script>
+
 </body>

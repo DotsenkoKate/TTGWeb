@@ -151,10 +151,10 @@ function TableDriversOnEditing(a) {
 }
 function DeleteRoute() {
     var route = $('#chosenRouteOnEditing').val();
-    const url ="https://jsonplaceholder.typicode.com/todos"; 
+    const url = "https://jsonplaceholder.typicode.com/todos";
     return fetch(url + '/' + route, {
         method: 'DELETE'
-    })        
+    })
         .then(
 
             function (response) {
@@ -177,7 +177,7 @@ function EditPrice() {
     var route = $('#chosenRouteOnEditing').val();
     const url = 'https://jsonplaceholder.typicode.com/todos';
 
-    var request = new Request(url + '/'+ route, {
+    var request = new Request(url + '/' + route, {
         method: 'POST',
         body: JSON.stringify(data),
         headers: { 'content-type': 'application/json' }
@@ -203,7 +203,7 @@ function EditRent() {
     var route = $('#chosenRouteOnEditing').val();
     const url = 'https://jsonplaceholder.typicode.com/todos';
 
-    var request = new Request(url + '/'+ route, {
+    var request = new Request(url + '/' + route, {
         method: 'POST',
         body: JSON.stringify(data),
         headers: { 'content-type': 'application/json' }
@@ -225,30 +225,30 @@ function EditRent() {
 
 
 //Функции для Редактирования Водителя
-function DriverInfoOnEditingDriver(item){
-   // 1. Создаём новый объект XMLHttpRequest
-   var xhr = new XMLHttpRequest();
-   var res;
-   const url='https://jsonplaceholder.typicode.com/todos';
-   // 2. Конфигурируем его: GET-запрос на URL
-   xhr.open('GET', url + '/' + item, false);
-   // 3. Отсылаем запрос
-   xhr.send();
-   // 4. Если код ответа сервера не 200, то это ошибка
-   if (xhr.status != 200) {
-       // обработать ошибку
-       alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
-   } else {
-       // вывести результат
-       res = JSON.parse(xhr.responseText);
-   }
-   document.getElementById("driver_name").value = res.id;
-   document.getElementById("passport").value = res.id;
-   document.getElementById("route").value = res.id;
-   document.getElementById("AutoMarka").value = res.id;
-   document.getElementById("AutoNum").value = res.id;
-   document.getElementById("DriverLogin").value = res.id;
-   document.getElementById("DriverPassword").value = res.id;
+function DriverInfoOnEditingDriver(item) {
+    // 1. Создаём новый объект XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+    var res;
+    const url = 'https://jsonplaceholder.typicode.com/todos';
+    // 2. Конфигурируем его: GET-запрос на URL
+    xhr.open('GET', url + '/' + item, false);
+    // 3. Отсылаем запрос
+    xhr.send();
+    // 4. Если код ответа сервера не 200, то это ошибка
+    if (xhr.status != 200) {
+        // обработать ошибку
+        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
+    } else {
+        // вывести результат
+        res = JSON.parse(xhr.responseText);
+    }
+    document.getElementById("driver_name").value = res.id;
+    document.getElementById("passport").value = res.id;
+    document.getElementById("route").value = res.id;
+    document.getElementById("AutoMarka").value = res.id;
+    document.getElementById("AutoNum").value = res.id;
+    document.getElementById("DriverLogin").value = res.id;
+    document.getElementById("DriverPassword").value = res.id;
 
 }
 function EditDriver() {
@@ -286,10 +286,10 @@ function EditDriver() {
 //Удалить водителя
 function DeleteDriver() {
     var route = $('#DriverLogin').val();
-    const url ="https://jsonplaceholder.typicode.com/todos"; 
+    const url = "https://jsonplaceholder.typicode.com/todos";
     return fetch(url + '/' + route, {
         method: 'DELETE'
-    })        
+    })
         .then(
 
             function (response) {
@@ -369,7 +369,7 @@ function SelectOptionOnNewDriver() {
     );
 }
 
- 
+
 //Функции для страницы Мои маршруты
 function GetMyRoutes() {
     // 1. Создаём новый объект XMLHttpRequest
@@ -618,97 +618,8 @@ function GetUserInfo() {
     }
 }
 
-function allerting(message) {
-    let a = message;
-    if (a == '1') {
-        alert("Арендная плата была изменена")
-    }
-    else if (a == '2') {
-        alert("Стоимость проезда была изменена")
-    }
-    else if (a == '3') {
-        alert("Маршрут удален")
-    }
-    else if (a == '5') {
-        alert("Добавлен новый маршрут")
-        javascript: history.back(); return false;
-    }
-    else if (a == '6') {
-        alert("Водитель удален")
-        javascript: history.back(); return false;
-    }
-    else if (a == '7') {
-        alert("Данные сохранены")
-        javascript: history.back(); return false;
-    }
-    else if (a == '8') {
-        alert("Водитель добавлен")
-        javascript: history.back(); return false;
-    }
-    else if (a == '9') {
-        alert("Автомобиль добавлен")
-        javascript: history.back(); return false;
-    }
-    else if (a == '10') {
-        alert("Автомобиль удален")
-        javascript: history.back(); return false;
-    }
-}
 
 
-
-
-function GetRequest() {
-    // 1. Создаём новый объект XMLHttpRequest
-    var xhr = new XMLHttpRequest();
-
-    // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos/1', false);
-
-    // 3. Отсылаем запрос
-    xhr.send();
-
-    // 4. Если код ответа сервера не 200, то это ошибка
-    if (xhr.status != 200) {
-        // обработать ошибку
-        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
-    } else {
-        // вывести результат
-
-        var tomUser = JSON.parse(xhr.responseText);
-        //document.write(tomUser.title); // Tom
-        alert(tomUser.title);
-        //alert(xhr.responseText); // responseText -- текст ответа.
-
-    }
-
-}
-function PostRequest() {
-    // 1. Создаём новый объект XMLHttpRequest
-    var xhr = new XMLHttpRequest();
-
-    // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('POST', 'https://jsonplaceholder.typicode.com/todos/1', true);
-
-    // 3. Отсылаем запрос
-    xhr.send();
-
-    // 4. Если код ответа сервера не 200, то это ошибка
-    if (xhr.status != 200) {
-        // обработать ошибку
-        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
-    } else {
-        // вывести результат
-
-        var tomUser = JSON.parse(xhr.responseText);
-        //document.write(tomUser.title); // Tom
-        alert(tomUser.title);
-        //alert(xhr.responseText); // responseText -- текст ответа.
-
-    }
-
-
-}
 //Функции для Редактирование маршрута
 function CreateRowStation(index, nameStation, location, description, a) {
     //Для начала, вам нужно найти элемент, в который нужно вставить вашу разметку. 
@@ -852,10 +763,10 @@ function ShowMapEditigRoute() {
 }
 
 //Функции для отчета
-function Report(){
-        localStorage.setItem('route',$('#routeOnReport').val());
-        localStorage.setItem('date', $('#date').val());
-        window.location="/Home/ReportResult/" + a;
+function Report() {
+    localStorage.setItem('route', $('#routeOnReport').val());
+    localStorage.setItem('date', $('#date').val());
+    window.location = "/Home/ReportResult/" + a;
 }
 
 function SelectOptionOnReport() {
@@ -868,6 +779,7 @@ function SelectOptionOnReport() {
         }
     );
 }
+//Функция для datapicker
 $(function () {
     $('#date').daterangepicker({
         locale: {
@@ -875,12 +787,12 @@ $(function () {
         }
     });
 });
-function ReportResult(){
+function ReportResult() {
     let a = localStorage.getItem('route');
     let b = localStorage.getItem('date');
     GetPricesOfRoute(a);
-    document.getElementById("route_name").innerHTML ="<b>"+ a + "</b>";
-    document.getElementById("date").innerHTML = "<b>"+ b + "</b>";
+    document.getElementById("route_name").innerHTML = "<b>" + a + "</b>";
+    document.getElementById("date").innerHTML = "<b>" + b + "</b>";
 
 }
 
@@ -969,15 +881,13 @@ function GetDataForDriverProf() {
     return array;
 }
 //Водители
-function CreateRowDriver(index, name, autonum, times, income) {
-    //Для начала, вам нужно найти элемент, в который нужно вставить вашу разметку. 
-    var table = document.getElementById('table');
+function CreateRowDriver(index, name, autonum, times, income, a) {
     //Теперь создаем строку и присваиваем ее переменной.
     var tr = document.createElement("tr");
     //добавляем разметку в созданную строку
     tr.innerHTML = '<td>' + (index + 1) + '</td> <td>' + name + '</td> <td>' + autonum + '</td> <td>' + times + ' </td><td>' + income + '</td>';
     //вставляем строку в таблицу
-    table.appendChild(tr);
+    a.appendChild(tr);
 }
 function GetInfoDrivers() {
     // 1. Создаём новый объект XMLHttpRequest
@@ -997,25 +907,23 @@ function GetInfoDrivers() {
     }
     return res;
 }
-function TableDriversOnReport() {
+function TableDriversOnReport(a) {
     var driverList = GetInfoDrivers();
     driverList.map(
         (driver, index) => {
             //Надо поменять id на необходимые поля из запроса
-            CreateRowDriver(index, driver.id, driver.id, driver.id, driver.id);
+            CreateRowDriver(index, driver.id, driver.id, driver.id, driver.id, a);
         }
     );
 }
 //Худшие
-function CreateRowDriverWorst(index, name, autonum, date, income) {
-    //Для начала, вам нужно найти элемент, в который нужно вставить вашу разметку. 
-    var table = document.getElementById('worst');
+function CreateRowDriverWorst(index, name, autonum, date, income, a) {
     //Теперь создаем строку и присваиваем ее переменной.
-    var tr = document.createElement("tr");
+    var tr1 = document.createElement("tr");
     //добавляем разметку в созданную строку
-    tr.innerHTML = '<td>' + (index + 1) + '</td> <td>' + name + '</td> <td>' + autonum + '</td> <td>' + date + ' </td><td>' + income + '</td>';
+    tr1.innerHTML = '<td>' + (index + 1) + '</td> <td>' + name + '</td> <td>' + autonum + '</td> <td>' + date + ' </td><td>' + income + '</td>';
     //вставляем строку в таблицу
-    table1.appendChild(tr);
+    a.appendChild(tr1);
 }
 function GetInfoDriversWorst() {
     // 1. Создаём новый объект XMLHttpRequest
@@ -1035,26 +943,23 @@ function GetInfoDriversWorst() {
     }
     return res;
 }
-function Worst() {
-    alert("d");
+function Worst(a) {
     var List = GetInfoDriversWorst();
     List.map(
         (worst, index) => {
             //Надо поменять id на необходимые поля из запроса
-            CreateRowDriver(index, worst.id, worst.id, worst.id, worst.id);
+            CreateRowDriver(index, worst.id, worst.id, worst.id, worst.id, a);
         }
     );
 }
 //Лучшие
-function CreateRowDriverBest(index, name, autonum, date, income) {
-    //Для начала, вам нужно найти элемент, в который нужно вставить вашу разметку. 
-    var table = document.getElementById('best');
+function CreateRowDriverBest(index, name, autonum, date, income, a) {
     //Теперь создаем строку и присваиваем ее переменной.
     var tr = document.createElement("tr");
     //добавляем разметку в созданную строку
     tr.innerHTML = '<td>' + (index + 1) + '</td> <td>' + name + '</td> <td>' + autonum + '</td> <td>' + date + ' </td><td>' + income + '</td>';
     //вставляем строку в таблицу
-    table.appendChild(tr);
+    a.appendChild(tr);
 }
 function GetInfoDriversBest() {
     // 1. Создаём новый объект XMLHttpRequest
@@ -1074,12 +979,75 @@ function GetInfoDriversBest() {
     }
     return res;
 }
-function Best() {
+function Best(a) {
     var driverList = GetInfoDriversBest();
     driverList.map(
         (driver, index) => {
             //Надо поменять id на необходимые поля из запроса
-            CreateRowDriver(index, driver.id, driver.id, driver.id, driver.id);
+            CreateRowDriver(index, driver.id, driver.id, driver.id, driver.id, a);
         }
     );
+}
+//Отрисовка таблиц
+function CreateTablesOnResult() {
+    var worst = document.getElementById('worst');
+    var best = document.getElementById('best');
+    var table = document.getElementById('tabledriver');
+    TableDriversOnReport(table);
+    Best(best);
+    Worst(worst);
+}
+
+
+//TEST
+function GetRequest() {
+    // 1. Создаём новый объект XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+
+    // 2. Конфигурируем его: GET-запрос на URL
+    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos/1', false);
+
+    // 3. Отсылаем запрос
+    xhr.send();
+
+    // 4. Если код ответа сервера не 200, то это ошибка
+    if (xhr.status != 200) {
+        // обработать ошибку
+        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
+    } else {
+        // вывести результат
+
+        var tomUser = JSON.parse(xhr.responseText);
+        //document.write(tomUser.title); // Tom
+        alert(tomUser.title);
+        //alert(xhr.responseText); // responseText -- текст ответа.
+
+    }
+
+}
+function PostRequest() {
+    // 1. Создаём новый объект XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+
+    // 2. Конфигурируем его: GET-запрос на URL
+    xhr.open('POST', 'https://jsonplaceholder.typicode.com/todos/1', true);
+
+    // 3. Отсылаем запрос
+    xhr.send();
+
+    // 4. Если код ответа сервера не 200, то это ошибка
+    if (xhr.status != 200) {
+        // обработать ошибку
+        alert(xhr.status + ': ' + xhr.statusText); // пример вывода: 404: Not Found
+    } else {
+        // вывести результат
+
+        var tomUser = JSON.parse(xhr.responseText);
+        //document.write(tomUser.title); // Tom
+        alert(tomUser.title);
+        //alert(xhr.responseText); // responseText -- текст ответа.
+
+    }
+
+
 }
