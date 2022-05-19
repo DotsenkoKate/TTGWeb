@@ -1,4 +1,5 @@
-[
+{
+  stations: [
   {
     "longitute": 48.724803,
     "lalitute": 44.468239,
@@ -17,4 +18,13 @@
     "name": "ул.Быстрая",
     "desciption": "около Метро"
   }
- ]
+ ],
+  cars: [
+  {
+    "longitute": 48.724803,
+    "lalitute": 44.468239,
+    "num": "A134AA123"
+  }
+  ]
+
+}
