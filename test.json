@@ -1,5 +1,5 @@
 {
-  stations: [
+  "stations": [
   {
     "longitute": 48.724803,
     "lalitute": 44.468239,
@@ -19,7 +19,7 @@
     "desciption": "около Метро"
   }
  ],
-  cars: [
+  "cars": [
   {
     "longitute": 48.724803,
     "lalitute": 44.468239,
