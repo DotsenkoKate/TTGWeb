@@ -2,14 +2,10 @@
   {
   "ways": [
   {
-    "num": 1,
-    "price": 25,
-    "rent": 5000
+    "num": 1
   },
   {
-    "num": 2,
-        "price": 25,
-    "rent": 3000
+    "num": 2
   }
  ]
 }
