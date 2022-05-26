@@ -49,7 +49,7 @@ function GetMyRoutesOnEditing() {
     var xhr = new XMLHttpRequest();
     var res;
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos', false);
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/json_test_files/wayinfo.json', false);
     // 3. Отсылаем запрос
     xhr.send();
     // 4. Если код ответа сервера не 200, то это ошибка
@@ -68,7 +68,7 @@ function SelectOptionOnEditing() {
     AddOption(objSel, " ", "null", true);
     routesList.map(
         (route) => {
-            AddOption(objSel, route.id, route.id, false);
+            AddOption(objSel, route.num, route.num, false);
         }
     );
 
@@ -78,7 +78,6 @@ function GetRoutesOnEditing() {
     document.getElementById('route_choose').innerHTML = document.getElementById("notnull").innerHTML;
     GetPrices();
     GetStations();
-    // TableDriversOnMyRoutes();
     init(a);
 }
 function GetPrices() {
@@ -86,7 +85,7 @@ function GetPrices() {
     var xhr = new XMLHttpRequest();
     var res;
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos/1', false);
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/json_test_files/price.json', false);
     // 3. Отсылаем запрос
     xhr.send();
     // 4. Если код ответа сервера не 200, то это ошибка
@@ -97,15 +96,15 @@ function GetPrices() {
         // вывести результат
         res = JSON.parse(xhr.responseText);
     }
-    document.getElementById("priceforpassangers").value = res.id;
-    document.getElementById("pricefordriver").value = res.id;
+    document.getElementById("priceforpassangers").value = res.price;
+    document.getElementById("pricefordriver").value = res.rent;
 }
 function GetStations() {
     // 1. Создаём новый объект XMLHttpRequest
     var xhr = new XMLHttpRequest();
     var res;
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos', false);
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/json_test_files/testmap.json', false);
     // 3. Отсылаем запрос
     xhr.send();
     // 4. Если код ответа сервера не 200, то это ошибка
@@ -117,11 +116,11 @@ function GetStations() {
         res = JSON.parse(xhr.responseText);
     }
 
-    res.map(
+    res.stations.map(
         (station) => {
             var li = document.createElement('li');
             ///Поменять id на нужную переменную
-            li.innerHTML = station.id;
+            li.innerHTML = station.name;
             document.getElementById("listOfStations").appendChild(li);
 
         }
@@ -129,23 +128,23 @@ function GetStations() {
 
 
 }
-function CreateRowDrivers(index, name, autonum, automodel, state, a) {
+function CreateRowDrivers(index, name, autonum, automodel, state, login) {
     //Для начала, вам нужно найти элемент, в который нужно вставить вашу разметку. 
     var table = document.getElementById('tabledriverediting');
     //Теперь создаем строку и присваиваем ее переменной.
     var tr = document.createElement("tr");
     //добавляем разметку в созданную строку
-    tr.innerHTML = '<td>' + (index + 1) + '</td> <td>' + name + '</td> <td>' + autonum + '</td> <td>' + automodel + ' </td><td>' + state + '</td><td><a href="/Home/EditingDriver' + a + '"  id="edit_driver"> Отредактировать водителя</a></td>';
+    tr.innerHTML = '<td>' + (index + 1) + '</td> <td>' + name + '</td> <td>' + autonum + '</td> <td>' + automodel + ' </td><td>' + state + '</td><td><a href="/Home/EditingDriver/' + login + '"  id="edit_driver"> Отредактировать водителя</a></td>';
     //вставляем строку в таблицу
     table.appendChild(tr);
 }
-function TableDriversOnEditing(a) {
+function TableDriversOnEditing() {
     var driverList = GetInfoAboutDrivers();
     $('#tabledriverediting').find('td').remove();
     driverList.map(
         (driver, index) => {
             //Надо поменять id на необходимые поля из запроса
-            CreateRowDrivers(index, driver.name, driver.num, driver.marka, driver.state, a);
+            CreateRowDrivers(index, driver.name, driver.num, driver.marka, driver.state, driver.login);
         }
     );
 }
@@ -229,9 +228,9 @@ function DriverInfoOnEditingDriver(item) {
     // 1. Создаём новый объект XMLHttpRequest
     var xhr = new XMLHttpRequest();
     var res;
-    const url = 'https://jsonplaceholder.typicode.com/todos';
+    const url = 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/json_test_files/driver1.json';
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', url + '/' + item, false);
+    xhr.open('GET', url, false);
     // 3. Отсылаем запрос
     xhr.send();
     // 4. Если код ответа сервера не 200, то это ошибка
@@ -242,13 +241,17 @@ function DriverInfoOnEditingDriver(item) {
         // вывести результат
         res = JSON.parse(xhr.responseText);
     }
-    document.getElementById("driver_name").value = res.id;
-    document.getElementById("passport").value = res.id;
-    document.getElementById("route").value = res.id;
-    document.getElementById("AutoMarka").value = res.id;
-    document.getElementById("AutoNum").value = res.id;
-    document.getElementById("DriverLogin").value = res.id;
-    document.getElementById("DriverPassword").value = res.id;
+
+    document.getElementById("driver_name").value = res.name;
+    document.getElementById("passport").value = res.passport;
+    document.getElementById("route").value = res.route;
+    document.getElementById("AutoMarka").value = res.marka;
+    document.getElementById("AutoNum").value = res.num;
+    document.getElementById("DriverLogin").value = res.login;
+    document.getElementById("DriverPassword").value = res.password;
+            
+
+
 
 }
 function EditDriver() {
@@ -345,7 +348,7 @@ function GetRoutesOnNewDriver() {
     var xhr = new XMLHttpRequest();
     var res;
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos', false);
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/json_test_files/wayinfo.json', false);
     // 3. Отсылаем запрос
     xhr.send();
     // 4. Если код ответа сервера не 200, то это ошибка
@@ -364,7 +367,7 @@ function SelectOptionOnNewDriver() {
     AddOption(objSel, " ", "null", true);
     routesList.map(
         (route) => {
-            AddOption(objSel, route.id, route.id, false);
+            AddOption(objSel, route.num, route.num, false);
         }
     );
 }
@@ -376,7 +379,8 @@ function GetMyRoutes() {
     var xhr = new XMLHttpRequest();
     var res;
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos', false);
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/json_test_files/wayinfo.json', false);
+
     // 3. Отсылаем запрос
     xhr.send();
     // 4. Если код ответа сервера не 200, то это ошибка
@@ -403,7 +407,7 @@ function SelectOptionOnMyRoutes() {
     AddOption(objSel, " ", "null", true);
     routesList.map(
         (route) => {
-            AddOption(objSel, route.id, route.id, false);
+            AddOption(objSel, route.num, route.num, false);
         }
     );
 }
@@ -430,7 +434,7 @@ function GetInfoAboutDrivers() {
     var xhr = new XMLHttpRequest();
     var res;
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/driver.json?token=GHSAT0AAAAAABUWIHI5YON7SEZZ56WKI2B2YUMJQUA', false);
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/json_test_files/driver.json', false);
     // 3. Отсылаем запрос
     xhr.send();
     // 4. Если код ответа сервера не 200, то это ошибка
@@ -457,7 +461,7 @@ function GetPricesOfRoute(a) {
     var xhr = new XMLHttpRequest();
     var res;
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/price.json?token=GHSAT0AAAAAABUWIHI5TV4LNYJ3KF27IWVOYUMJD4A', false);
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/json_test_files/price.json', false);
     // 3. Отсылаем запрос
     xhr.send();
     // 4. Если код ответа сервера не 200, то это ошибка
@@ -475,7 +479,7 @@ function init(a) {
     // Создание карты.
     myMap = new ymaps.Map("mapMyRoute", {
         center: [48.717987, 44.481111],
-        zoom: 12,
+        zoom: 5,
         controls: ['fullscreenControl', 'zoomControl']
     });
     addItems(myMap);
@@ -511,7 +515,7 @@ function GetRouteForMap() {
     var xhr = new XMLHttpRequest();
 
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/test1.json?token=GHSAT0AAAAAABUWIHI5ELQO4RYB336JUVGUYUMI64Q', false);
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/json_test_files/testmap.json', false);
 
     // 3. Отсылаем запрос
     xhr.send();
@@ -540,7 +544,7 @@ function GetDriverMarkForMap(myMap) {
     var xhr = new XMLHttpRequest();
 
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/test1.json?token=GHSAT0AAAAAABUWIHI5ELQO4RYB336JUVGUYUMI64Q', false);
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/json_test_files/testmap.json', false);
 
     // 3. Отсылаем запрос
     xhr.send();
@@ -581,7 +585,7 @@ function GetMarkForMap(myMap) {
     var xhr = new XMLHttpRequest();
 
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/test1.json?token=GHSAT0AAAAAABUWIHI5ELQO4RYB336JUVGUYUMI64Q', false);
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/json_test_files/testmap.json', false);
 
     // 3. Отсылаем запрос
     xhr.send();
@@ -609,6 +613,8 @@ function GetMarkForMap(myMap) {
     }
 
 }
+
+
 //Функция для страницы Мой профиль
 function SaveNewProfileInfo() {
     var info = {
@@ -618,7 +624,7 @@ function SaveNewProfileInfo() {
         password: $('#password').val(),
     }
     //Поменять адрес
-    const url = 'https://randomuser.me/api';
+    const url = 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/json_test_files/profile.json';
 
     var request = new Request(url, {
         method: 'POST',
@@ -635,7 +641,6 @@ function SaveNewProfileInfo() {
                 }
                 else {
                     alert("Данные успешно изменены!Авторизуйтесь, чтобы продолжить работу");
-                    //Придумать что-то для переадресации на страницу авторизациии!!!
                     location.href = '/';
                     window.localStorage.clear();
 
@@ -648,7 +653,7 @@ function GetUserInfo() {
     var xhr = new XMLHttpRequest();
 
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos/1', false);
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/json_test_files/profile.json', false);
 
     // 3. Отсылаем запрос
     xhr.send();
@@ -661,10 +666,10 @@ function GetUserInfo() {
     else {
         // вывести результат
         var res = JSON.parse(xhr.responseText);
-        document.getElementById("name").value = res.id;
-        document.getElementById("license").value = res.id;
-        document.getElementById("login").value = res.id;
-        document.getElementById("password").value = res.id;
+        document.getElementById("name").value = res.name;
+        document.getElementById("license").value = res.license;
+        document.getElementById("login").value = res.login;
+        document.getElementById("password").value = res.password;
 
     }
 }
@@ -684,10 +689,10 @@ function CreateRowStation(nameStation, lalitude, longitude, description) {
 function TableStationOnEditingRoute() {
     var stationList = GetInfoAboutStations();
     $('#dynamic').find('td').remove();
-    stationList.map(
+    stationList.stations.map(
         (station, index) => {
             //Надо поменять id на необходимые поля из запроса
-            CreateRowStation(station.id, station.id, station.id, station.id);
+            CreateRowStation(station.name, station.lalitute, station.longitute, station.desciption);
         }
     );
 }
@@ -700,7 +705,7 @@ function GetInfoAboutStations() {
     var xhr = new XMLHttpRequest();
     var res;
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos/', false);
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/json_test_files/testmap.json', false);
     // 3. Отсылаем запрос
     xhr.send();
     // 4. Если код ответа сервера не 200, то это ошибка
@@ -718,7 +723,7 @@ function init1() {
     // Создание карты.
     myMap = new ymaps.Map("map", {
         center: [48.717987, 44.481111],
-        zoom: 12,
+        zoom: 5,
         controls: ['fullscreenControl', 'zoomControl']
     }, {
         balloonMaxWidth: 200,
@@ -842,7 +847,7 @@ function SelectOptionOnReport() {
     AddOption(objSel, " ", "null", true);
     routesList.map(
         (route) => {
-            AddOption(objSel, route.id, route.id, false);
+            AddOption(objSel, route.num, route.num, false);
         }
     );
 }
@@ -868,7 +873,7 @@ function GetDataForTime() {
     var xhr = new XMLHttpRequest();
 
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos', false);
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/json_test_files/report.json', false);
 
     // 3. Отсылаем запрос
     xhr.send();
@@ -882,10 +887,10 @@ function GetDataForTime() {
 
         var res = JSON.parse(xhr.responseText);
         var array = [['Месяц', 'Время']];
-        res.map(
+        res.time1.map(
             (data) => {
                 //Надо поменять id на необходимые поля из запроса
-                array.push([data.id, data.id]);
+                array.push([data.month, data.time]);
             }
         );
     }
@@ -896,7 +901,7 @@ function GetDataForProfit() {
     var xhr = new XMLHttpRequest();
 
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos', false);
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/json_test_files/report.json', false);
 
     // 3. Отсылаем запрос
     xhr.send();
@@ -910,10 +915,10 @@ function GetDataForProfit() {
 
         var res = JSON.parse(xhr.responseText);
         var array = [['Месяц', 'Сумма']];
-        res.map(
+        res.profit1.map(
             (data) => {
                 //Надо поменять id на необходимые поля из запроса
-                array.push([data.id, data.id]);
+                array.push([data.month, data.profit]);
             }
         );
     }
@@ -924,7 +929,7 @@ function GetDataForDriverProf() {
     var xhr = new XMLHttpRequest();
 
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos', false);
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/json_test_files/driver_report.json', false);
 
     // 3. Отсылаем запрос
     xhr.send();
@@ -941,7 +946,7 @@ function GetDataForDriverProf() {
         res.map(
             (data) => {
                 //Надо поменять id на необходимые поля из запроса
-                array.push([data.title, data.id]);
+                array.push([data.name, data.income]);
             }
         );
     }
@@ -961,7 +966,7 @@ function GetInfoDrivers() {
     var xhr = new XMLHttpRequest();
     var res;
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos', false);
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/json_test_files/driver_report.json', false);
     // 3. Отсылаем запрос
     xhr.send();
     // 4. Если код ответа сервера не 200, то это ошибка
@@ -979,7 +984,7 @@ function TableDriversOnReport(a) {
     driverList.map(
         (driver, index) => {
             //Надо поменять id на необходимые поля из запроса
-            CreateRowDriver(index, driver.id, driver.id, driver.id, driver.id, a);
+            CreateRowDriver(index, driver.name, driver.num, driver.count, driver.income, a);
         }
     );
 }
@@ -997,7 +1002,7 @@ function GetInfoDriversWorst() {
     var xhr = new XMLHttpRequest();
     var res;
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos', false);
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/json_test_files/best%26worst.json', false);
     // 3. Отсылаем запрос
     xhr.send();
     // 4. Если код ответа сервера не 200, то это ошибка
@@ -1012,10 +1017,10 @@ function GetInfoDriversWorst() {
 }
 function Worst(a) {
     var List = GetInfoDriversWorst();
-    List.map(
-        (worst, index) => {
+    List.worst.map(
+        (worsts, index) => {
             //Надо поменять id на необходимые поля из запроса
-            CreateRowDriver(index, worst.id, worst.id, worst.id, worst.id, a);
+            CreateRowDriver(index, worsts.name, worsts.num, worsts.date, worsts.income, a);
         }
     );
 }
@@ -1033,7 +1038,7 @@ function GetInfoDriversBest() {
     var xhr = new XMLHttpRequest();
     var res;
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos', false);
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/json_test_files/best%26worst.json', false);
     // 3. Отсылаем запрос
     xhr.send();
     // 4. Если код ответа сервера не 200, то это ошибка
@@ -1048,10 +1053,10 @@ function GetInfoDriversBest() {
 }
 function Best(a) {
     var driverList = GetInfoDriversBest();
-    driverList.map(
+    driverList.best.map(
         (driver, index) => {
             //Надо поменять id на необходимые поля из запроса
-            CreateRowDriver(index, driver.id, driver.id, driver.id, driver.id, a);
+            CreateRowDriver(index, driver.name, driver.num, driver.date, driver.income, a);
         }
     );
 }

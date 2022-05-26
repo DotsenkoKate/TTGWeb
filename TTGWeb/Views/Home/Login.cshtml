@@ -3,7 +3,6 @@
     Layout = "_LayoutStart";
 }
 <script src="~/js/LoginScript.js" asp-append-version="true"></script>
-@model LoginViewModel
 
 <body>
     <div class="container">
@@ -14,14 +13,12 @@
                 <h1> Авторизация</h1><br>
                 <div>
                     <span style=" font-size: 17pt;">Логин</span>
-                    <input class="form-control" asp-for="Login" name="login" id="login" runat="server"
-                        style="text-align: left;" required />
+                    <input class="form-control"  name="login" id="login" runat="server" style="text-align: left;" required />
                     <br>
                 </div>
                 <div>
                     <span style=" font-size: 17pt;">Пароль</span>
-                    <input class="form-control" asp-for="Password" name="password" id="password" runat="server"
-                        style="text-align: left;" type="password" required />
+                    <input class="form-control" name="password" id="password" runat="server" style="text-align: left;" type="password" required />
                     <br>
                 </div>
 
@@ -47,11 +44,13 @@
         function login() {
             var log = document.getElementById('login').value;
             var pass = document.getElementById('password').value;
+            console.log(log);
+            console.log(pass);
             // 1. Создаём новый объект XMLHttpRequest
             var xhr = new XMLHttpRequest();
             var res;
             // 2. Конфигурируем его: GET-запрос на URL
-            xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos/1', false);
+            xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/json_test_files/profile.json', false);
             // 3. Отсылаем запрос
             xhr.send();
             // 4. Если код ответа сервера не 200, то это ошибка
@@ -62,8 +61,9 @@
             } else {
                 // вывести результат
                 res = JSON.parse(xhr.responseText);
+                console.log(res.name, res.password);
             }
-            if (res.id == log && res.id == pass) {
+            if (res.login == log && res.password == pass) {
 
                 window.localStorage.setItem("login", log);
                 location.pathname = '/Home/Profile'

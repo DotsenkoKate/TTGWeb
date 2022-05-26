@@ -3,7 +3,7 @@
     Layout = "_LayoutMain";
 }
 
-<body onload="SelectOptionOnNewDriver(), DriverInfoOnEditingDriver(1)">
+<body onload="SelectOptionOnNewDriver(), DriverInfoOnEditingDriver(window.location.search)">
     <h1 align="center">Параметры редактирования</h1>
     <br>
     <form method="post" id="editing_driver" style="margin-left:10rem; margin-right:5rem">
