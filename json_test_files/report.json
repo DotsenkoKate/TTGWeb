@@ -2,23 +2,23 @@
     "profit": [
         {
             "month": "01.2022",
-            "profit": 10000,
+            "profit": "10000",
         },
         {
             "month": "02.2022",
-            "profit": 20000,
+            "profit": "20000",
         },
         {
             "month": "03.2022",
-            "profit": 21000,
+            "profit": "21000",
         },
         {
             "month": "04.2022",
-            "profit": 30000,
+            "profit": "30000",
         },
         {
             "month": "05.2022",
-            "profit": 12000
+            "profit": "12000"
         }
     ],
     "time": [
