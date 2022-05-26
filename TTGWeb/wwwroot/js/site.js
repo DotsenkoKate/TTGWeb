@@ -145,7 +145,7 @@ function TableDriversOnEditing(a) {
     driverList.map(
         (driver, index) => {
             //Надо поменять id на необходимые поля из запроса
-            CreateRowDrivers(index, driver.id, driver.id, driver.id, driver.id, a);
+            CreateRowDrivers(index, driver.name, driver.num, driver.marka, driver.state, a);
         }
     );
 }
@@ -430,7 +430,7 @@ function GetInfoAboutDrivers() {
     var xhr = new XMLHttpRequest();
     var res;
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos', false);
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/driver.json?token=GHSAT0AAAAAABUWIHI5YON7SEZZ56WKI2B2YUMJQUA', false);
     // 3. Отсылаем запрос
     xhr.send();
     // 4. Если код ответа сервера не 200, то это ошибка
@@ -448,7 +448,7 @@ function TableDriversOnMyRoutes() {
     driverList.map(
         (driver, index) => {
             //Надо поменять id на необходимые поля из запроса
-            CreateRowAboutDriver(index, driver.id, driver.id, driver.id, driver.id);
+            CreateRowAboutDriver(index, driver.name, driver.num, driver.marka, driver.state);
         }
     );
 }
@@ -457,7 +457,7 @@ function GetPricesOfRoute(a) {
     var xhr = new XMLHttpRequest();
     var res;
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos/1', false);
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/price.json?token=GHSAT0AAAAAABUWIHI5TV4LNYJ3KF27IWVOYUMJD4A', false);
     // 3. Отсылаем запрос
     xhr.send();
     // 4. Если код ответа сервера не 200, то это ошибка
@@ -468,8 +468,8 @@ function GetPricesOfRoute(a) {
         // вывести результат
         res = JSON.parse(xhr.responseText);
     }
-    document.getElementById("priceforpassangers").innerHTML = res.id;
-    document.getElementById("pricefordriver").innerHTML = res.id;
+    document.getElementById("priceforpassangers").innerHTML = res.price;
+    document.getElementById("pricefordriver").innerHTML = res.rent;
 }
 function init(a) {
     // Создание карты.
@@ -511,7 +511,7 @@ function GetRouteForMap() {
     var xhr = new XMLHttpRequest();
 
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/test.json?token=GHSAT0AAAAAABUWIHI5MBTTEJ2ABE44QPIYYUGKFRA', false);
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/test1.json?token=GHSAT0AAAAAABUWIHI5ELQO4RYB336JUVGUYUMI64Q', false);
 
     // 3. Отсылаем запрос
     xhr.send();
@@ -540,7 +540,7 @@ function GetDriverMarkForMap(myMap) {
     var xhr = new XMLHttpRequest();
 
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/test.json?token=GHSAT0AAAAAABUWIHI5MBTTEJ2ABE44QPIYYUGKFRA', false);
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/test1.json?token=GHSAT0AAAAAABUWIHI5ELQO4RYB336JUVGUYUMI64Q', false);
 
     // 3. Отсылаем запрос
     xhr.send();
@@ -581,7 +581,7 @@ function GetMarkForMap(myMap) {
     var xhr = new XMLHttpRequest();
 
     // 2. Конфигурируем его: GET-запрос на URL
-    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/test.json?token=GHSAT0AAAAAABUWIHI5MBTTEJ2ABE44QPIYYUGKFRA', false);
+    xhr.open('GET', 'https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/test1.json?token=GHSAT0AAAAAABUWIHI5ELQO4RYB336JUVGUYUMI64Q', false);
 
     // 3. Отсылаем запрос
     xhr.send();
