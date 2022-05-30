@@ -26,42 +26,6 @@ namespace TTGWeb.Controllers
             return View();
         }
 
-/*        public IActionResult CheckLogin(string login, string password)
-        {
-            WebRequest request = WebRequest.Create("https://jsonplaceholder.typicode.com/todos/1");
-            WebResponse response = request.GetResponse();
-            using (Stream stream = response.GetResponseStream())
-            {
-                using (StreamReader reader = new StreamReader(stream))
-                {
-                    string line = "";
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        Console.WriteLine(line);
-                    }
-                }
-            }
-            response.Close();
-            Console.WriteLine("Запрос выполнен");
-
-            //ProfileModel model = new ProfileModel();
-            //model.FromString(line);
-
-            if (login == "a" && password == "123")
-            {
-                Console.WriteLine(login);
-                return RedirectToAction("ShowProfile", "Home", new {login});
-            }
-
-            else
-            {
-                ViewBag.Message = "Неверный пароль или логин!";
-            }
-
-            return View("Login");
-        }
-        */
-
         public IActionResult Registration()
         {
             return View();
@@ -71,82 +35,43 @@ namespace TTGWeb.Controllers
         {
             return View();
         }
-       /* public IActionResult ShowProfile(string login)
+
+        public IActionResult MyRoutes() {
+
+            return View("MyRoutes");
+        }
+        public IActionResult Report()
+        {
+            return View("Report");
+        }
+        public IActionResult ReportResult()
+        {
+            return View("ReportResult");
+        }
+        public IActionResult Editing()
         {
 
-           ProfileModel model = new ProfileModel();
-            /*string result = "";
-    
-            WebRequest request = WebRequest.Create("https://raw.githubusercontent.com/DotsenkoKate/TTGWeb/master/test.json?token=GHSAT0AAAAAABTRH4JIH6IK72JH65DU327EYUDZ34Q");
-            WebResponse response = request.GetResponse();
-            using (Stream stream = response.GetResponseStream())
-            {
-                using (StreamReader reader = new StreamReader(stream))
-                {
-                    string line = "";
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        result += line + "\n";
-                    }
-                }
-            }
-            response.Close();
-
-            ProfileModel? model = JsonSerializer.Deserialize<ProfileModel>(result);*/
-            
-/*
-            model.Name = "Петр";
-            model.Login = login;
-            model.License = "123456789";
-            model.Password = "123";
-
-            ViewData["Name"] = model.Name;
-            ViewData["License"] = model.License;
-            ViewData["Login"] = model.Login;
-            ViewData["Password"] = model.Password;
-
-            return View("Profile");
-        }*/
-        public IActionResult MyRoutes(string login) {
-
-            ViewData["Login"] = login;
-            return View("MyRoutes", login);
+            return View("Editing");
         }
-        public IActionResult Report(string login)
-        {
-            ViewData["Login"] = login;
-            return View("Report", login);
-        }
-        public IActionResult ReportResult(string login)
-        {
-            ViewData["Login"] = login;
-            return View("ReportResult", login);
-        }
-        public IActionResult Editing(string login)
+        public IActionResult EditingDriver()
         {
 
-            ViewData["Login"] = login;
-            return View("Editing", login);
+            return View("EditingDriver");
         }
-        public IActionResult EditingDriver(string login)
+        public IActionResult NewDriver()
         {
-            ViewData["Login"] = login;
-            return View("EditingDriver", login);
+
+            return View("NewDriver");
         }
-        public IActionResult NewDriver(string login)
+        public IActionResult EditingRoute()
         {
-            ViewData["Login"] = login;
-            return View("NewDriver", login);
+
+            return View("EditingRoute");
         }
-        public IActionResult EditingRoute(string login)
+        public IActionResult NewRoute()
         {
-            ViewData["Login"] = login;
-            return View("EditingRoute", login);
-        }
-        public IActionResult NewRoute(string login)
-        {
-            ViewData["Login"] = login;
-            return View("NewRoute", login);
+
+            return View("NewRoute");
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

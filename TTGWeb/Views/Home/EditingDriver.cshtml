@@ -2,6 +2,10 @@
     ViewData["Title"] = "Редактирование водителя";
     Layout = "_LayoutMain";
 }
+<script src="~/js/funcForEditingDriver.js" asp-append-version="true"></script>
+<script src="~/js/funcForMyRoutes.js" asp-append-version="true"></script>
+<script src="~/js/funcForCreateNewDriver.js" asp-append-version="true"></script>
+
 
 <body onload="SelectOptionOnNewDriver(), DriverInfoOnEditingDriver(window.location.search)">
     <h1 align="center">Параметры редактирования</h1>
@@ -70,4 +74,6 @@
             EditDriver();
         });
     </script>
+
+
 </body>

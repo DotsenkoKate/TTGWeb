@@ -3,6 +3,8 @@
     Layout = "_LayoutMain";
 }
 
+<script src="~/js/funcForEditingRoute.js" asp-append-version="true"></script>
+
 <body onload="ShowMapEditigRoute(), TableStationOnEditingRoute()">
     <script src="https://api-maps.yandex.ru/2.1/?apikey=35171b98-e159-494e-9a49-fb4f12e60d78&lang=ru_RU"
         type="text/javascript"></script>
@@ -67,5 +69,7 @@
             var row = el.parentNode.parentNode;
             row.parentNode.deleteRow((row.rowIndex) - 1);
         }
+
     </script>
+    <script src="~/js/funcForMyRoutes.js" asp-append-version="true"></script>
 </body>
